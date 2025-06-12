@@ -1,43 +1,30 @@
 ---
-import DownloadHandy from "../components/DownloadHandy";
-import "../styles/global.css";
-
-import Header from "../components/Header";
-import HandyHand from "../components/logo/HandyHand";
+import MainLayout from "../layouts/MainLayout.astro";
+import PlatformDownloadButton from "../components/PlatformDownloadButton";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="description"
-            content="Handy is a cross platform speech to text application for your computer"
-        />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Handy</title>
-    </head>
-    <body class="flex flex-col max-w-[640px] mx-auto items-center gap-12">
-        <Header />
-        <div class="flex gap-8 items-center">
-            <HandyHand className="w-36 shrink-0" />
-            <div class="flex flex-col gap-[10px]">
-                <h1>speak into any text field</h1>
-                <h3 class="text-handy-text/70">
-                    the free and open source app for speech to text
-                </h3>
-            </div>
+<MainLayout
+    title="Handy"
+    description="Handy is a cross platform speech to text application for your computer"
+    showHero={true}
+    heroTitle="speak into any text field"
+    heroSubtitle="the free and open source app for speech to text"
+>
+    <div class="flex flex-col items-center gap-12">
+        <div class="flex gap-4 items-center">
+            <PlatformDownloadButton client:only="react" />
+            <a href="/download">other platforms</a>
         </div>
-        <DownloadHandy />
         <video
             width="640"
             height="360"
             src="https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/04/file_example_MP4_640_3MG.mp4"
             class="rounded-4xl shadow-md bg-black"
-            autoplay></video>
+            autoplay
+        >
+        </video>
         <div class="w-full">
-            <!-- <AboutContent /> -->
+            <!-- any content goes here -->
         </div>
-    </body>
-</html>
+    </div>
+</MainLayout>
