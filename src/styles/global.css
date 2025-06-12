@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+    --handy-background: #fffce5;
+    --handy-pink: #faa2ca;
+    --handy-text: #382731;
+    --handy-light-pink: #f9c5e8;
+    --handy-dark-pink: #61052f;
+}
+
+@theme {
+    --color-background: var(--handy-background);
+    --color-handy-text: var(--handy-text);
+    --color-handy-pink: var(--handy-pink);
+    --color-handy-light-pink: var(--handy-light-pink);
+    --color-handy-dark-pink: var(--handy-dark-pink);
+}
+
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+        Cantarell, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.02rem;
+    color: var(--handy-text);
+    background-color: var(--handy-background);
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    /* margin-bottom: 0.5em; */
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+h2 {
+    font-size: 2rem;
+}
+h3 {
+    font-size: 1.75rem;
+}
+h4 {
+    font-size: 1.5rem;
+}
+h5 {
+    font-size: 1.25rem;
+}
+h6 {
+    font-size: 1rem;
+}
+
+a {
+    color: var(--handy-text);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    /* text-decoration: underline; */
+    color: var(--handy-pink);
+}
