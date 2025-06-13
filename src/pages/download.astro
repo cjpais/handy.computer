@@ -22,11 +22,24 @@ import MainLayout from "../layouts/MainLayout.astro";
                 class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
                 >MacOS (.dmg)</a
             >
-            <a
-                href="/"
-                class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
-                >Linux (.AppImage)</a
-            >
+            <div class="flex flex-col gap-2">
+                <h4>Linux</h4>
+                <a
+                    href="/"
+                    class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+                    >.AppImage</a
+                >
+                <a
+                    href="/"
+                    class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+                    >.deb</a
+                >
+                <a
+                    href="/"
+                    class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+                    >.rpm</a
+                >
+            </div>
         </div>
     </div>
 </MainLayout>

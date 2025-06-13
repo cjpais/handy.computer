@@ -10,6 +10,11 @@ export interface Props {
     showHero?: boolean;
     heroTitle?: string;
     heroSubtitle?: string;
+    ogImage?: string;
+    ogType?: string;
+    twitterCard?: string;
+    author?: string;
+    canonicalUrl?: string;
 }
 
 const {
@@ -18,7 +23,17 @@ const {
     showHero = false,
     heroTitle,
     heroSubtitle,
+    ogImage = "/og-banner.png",
+    ogType = "website",
+    twitterCard = "summary_large_image",
+    author = "CJ Pais & Contributors",
+    canonicalUrl,
 } = Astro.props;
+
+const fullTitle = title === "Handy" ? title : `${title} | Handy`;
+const siteUrl = Astro.site || new URL(Astro.request.url).origin;
+const currentUrl = canonicalUrl || new URL(Astro.request.url).href;
+const fullOgImage = new URL(ogImage, siteUrl).href;
 
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.slice(1);
@@ -29,9 +44,35 @@ const currentPath = pathname.slice(1);
         <meta charset="utf-8" />
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width" />
+        <meta name="author" content={author} />
         <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+        <link rel="canonical" href={currentUrl} />
         <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
+
+        <!-- Primary Meta Tags -->
+        <title>{fullTitle}</title>
+        <meta name="title" content={fullTitle} />
+        <meta name="description" content={description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={fullOgImage} />
+        <meta property="og:site_name" content="Handy" />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content={twitterCard} />
+        <meta property="twitter:url" content={currentUrl} />
+        <meta property="twitter:title" content={fullTitle} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={fullOgImage} />
+
+        <!-- Additional Meta Tags -->
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="theme-color" content="#faa2ca" />
     </head>
     <body class="flex flex-col max-w-[680px] mx-auto items-center gap-12 px-4">
         <Header currentPath={currentPath} client:load />
