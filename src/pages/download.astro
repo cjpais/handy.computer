@@ -1,0 +1,32 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+    title="Download Handy"
+    description="Download Handy - the free and open source speech to text application for Windows, macOS, and Linux"
+>
+    <div class="flex flex-col items-center gap-6 w-full">
+        <img src="/icon.png" width="256" />
+
+        <h2 class="text-2xl font-semibold text-center mb-2">Download Handy</h2>
+
+        <div class="flex gap-4">
+            <a
+                href="/"
+                class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+                >Windows (.exe)</a
+            >
+            <a
+                href="/"
+                class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+                >MacOS (.dmg)</a
+            >
+            <a
+                href="/"
+                class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+                >Linux (.AppImage)</a
+            >
+        </div>
+    </div>
+</MainLayout>
