@@ -28,6 +28,22 @@ body {
     background-color: var(--handy-background);
 }
 
+/* Paragraphs */
+p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* Mobile-first responsive paragraphs */
+@media (max-width: 640px) {
+    p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 0.875rem;
+    }
+}
+
 /* Headings */
 h1,
 h2,
@@ -35,11 +51,12 @@ h3,
 h4,
 h5,
 h6 {
-    /* margin-bottom: 0.5em; */
     font-weight: 600;
     line-height: 1.3;
+    margin-bottom: 0.75rem;
 }
 
+/* Desktop heading sizes */
 h1 {
     font-size: 2.5rem;
 }
@@ -57,6 +74,34 @@ h5 {
 }
 h6 {
     font-size: 1rem;
+}
+
+/* Mobile heading sizes */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 1.875rem; /* 30px */
+        line-height: 1.2;
+    }
+    h2 {
+        font-size: 1.5rem; /* 24px */
+        line-height: 1.25;
+    }
+    h3 {
+        font-size: 1.375rem; /* 22px */
+        line-height: 1.3;
+    }
+    h4 {
+        font-size: 1.25rem; /* 20px */
+        line-height: 1.3;
+    }
+    h5 {
+        font-size: 1.125rem; /* 18px */
+        line-height: 1.35;
+    }
+    h6 {
+        font-size: 1rem; /* 16px */
+        line-height: 1.4;
+    }
 }
 
 a {

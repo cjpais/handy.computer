@@ -32,7 +32,7 @@ const PlatformDownloadButton = () => {
   return (
     <a
       href={DOWNLOAD_LINKS[platform]}
-      className="text-xl px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+      className="text-base sm:text-xl px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
     >
       {`download handy for ${friendlyName(platform)}`}
     </a>

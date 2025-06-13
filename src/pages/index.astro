@@ -11,7 +11,7 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
     heroSubtitle="the free and open source app for speech to text"
 >
     <div class="flex flex-col items-center gap-12">
-        <div class="flex gap-4 items-center">
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center">
             <PlatformDownloadButton client:only="react" />
             <a href="/download">other platforms</a>
         </div>
@@ -23,7 +23,7 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
             autoplay
         >
         </video>
-        <div class="w-full grid grid-cols-2 gap-12">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 md:gap-12 gap-4">
             <div class="space-y-1">
                 <h2>Free</h2>
                 <p>
@@ -46,8 +46,11 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
                 </p>
             </div>
             <div class="space-y-1">
-                <h2>Speak</h2>
-                <p>Because speaking is much faster than typing.</p>
+                <h2>Simple</h2>
+                <p>
+                    Because sometimes you just need a tool to do one thing.
+                    Transcribe what you say and put it into a text box.
+                </p>
             </div>
         </div>
     </div>
