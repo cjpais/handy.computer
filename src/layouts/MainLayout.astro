@@ -74,23 +74,36 @@ const currentPath = pathname.slice(1);
         <meta name="language" content="English" />
     </head>
     <body class="flex flex-col max-w-[680px] mx-auto items-center gap-12 px-4">
+        <a
+            href="#main-content"
+            class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-handy-pink px-4 py-2 rounded"
+        >
+            Skip to main content
+        </a>
         <Header currentPath={currentPath} client:load />
 
         {
             showHero && (
-                <div class="flex gap-8 items-center">
-                    <HandyHand className="w-24 sm:w-36 shrink-0" />
-                    <div class="flex flex-col gap-1 sm:gap-[10px]">
-                        <h1>{heroTitle}</h1>
-                        {heroSubtitle && (
-                            <h3 class="text-handy-text/70">{heroSubtitle}</h3>
-                        )}
+                <section role="banner" aria-labelledby="hero-title">
+                    <div class="flex gap-8 items-center">
+                        <HandyHand
+                            className="w-24 sm:w-36 shrink-0"
+                            alt="Handy application logo"
+                        />
+                        <div class="flex flex-col gap-1 sm:gap-[10px]">
+                            <h1 id="hero-title">{heroTitle}</h1>
+                            {heroSubtitle && (
+                                <h3 class="text-handy-text/70">
+                                    {heroSubtitle}
+                                </h3>
+                            )}
+                        </div>
                     </div>
-                </div>
+                </section>
             )
         }
 
-        <main class="w-full">
+        <main id="main-content" role="main" class="w-full">
             <slot />
         </main>
     </body>

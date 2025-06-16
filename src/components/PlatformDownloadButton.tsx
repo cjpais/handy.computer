@@ -33,6 +33,8 @@ const PlatformDownloadButton = () => {
     <a
       href={DOWNLOAD_LINKS[platform]}
       className="text-base sm:text-xl px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
+      aria-label={`Download Handy ${platform === "unknown" ? "for your operating system" : `for ${platform}`}`}
+      role="button"
     >
       {`download handy ${friendlyName(platform)}`}
     </a>

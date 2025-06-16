@@ -36,7 +36,10 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
   ];
 
   return (
-    <div className="flex justify-between w-full sm:pt-8 pt-4 items-center relative">
+    <header
+      className="flex justify-between w-full sm:pt-8 pt-4 items-center relative"
+      role="banner"
+    >
       <a href="/">
         <HandyTextLogo className="h-10 sm:h-16" />
       </a>
@@ -68,7 +71,9 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
       <button
         className="sm:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        aria-label="Toggle menu"
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isMenuOpen}
+        aria-controls="mobile-menu"
       >
         <span
           className={`w-6 h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
@@ -83,7 +88,10 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && isMobile && (
-        <div className="absolute top-full right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
+        <div
+          id="mobile-menu"
+          className="absolute top-full right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50"
+        >
           <div className="py-2">
             {navItems.map((item) => (
               <a
@@ -109,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
           </div>
         </div>
       )}
-    </div>
+    </header>
   );
 };
 

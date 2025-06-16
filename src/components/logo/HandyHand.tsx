@@ -1,10 +1,18 @@
-const HandyHand = ({ className = "" }: { className?: string }) => {
+const HandyHand = ({
+  className = "",
+  alt = "Handy hand. A cartoon-style white hand with a friendly face, featuring two black dot eyes and a smiling mouth with a pink tongue visible. The hand is giving a peace sign or victory gesture with two fingers extended upward, while the thumb and other fingers are folded down. The hand has a simple cuff at the wrist and is drawn with black outlines against a light cream background.",
+}: {
+  className?: string;
+  alt?: string;
+}) => {
   return (
     <svg
       viewBox="0 0 151 165"
       className={className}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={alt}
     >
       <path
         fillRule="evenodd"
