@@ -2,6 +2,8 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import { Image } from "astro:assets";
 import platformIcon from "../images/icon.png";
+import PlatformSection from "../components/PlatformSection.astro";
+import DownloadButton from "../components/DownloadButton.astro";
 ---
 
 <MainLayout
@@ -15,37 +17,42 @@ import platformIcon from "../images/icon.png";
             alt="The handy logo, with a pink rounded circle as the background, with a white cartoon smiling hand shape in the middle."
         />
 
-        <h2 class="text-2xl font-semibold text-center mb-2">Download Handy</h2>
+        <h1>Download Handy</h1>
 
-        <div class="flex flex-col w-64 gap-4">
-            <a
-                href="/"
-                class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
-                >Windows (.exe)</a
-            >
-            <a
-                href="/"
-                class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
-                >MacOS (.dmg)</a
-            >
-            <div class="flex flex-col gap-2">
-                <h4>Linux</h4>
-                <a
-                    href="/"
-                    class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
-                    >.AppImage</a
-                >
-                <a
-                    href="/"
-                    class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
-                    >.deb</a
-                >
-                <a
-                    href="/"
-                    class="px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
-                    >.rpm</a
-                >
-            </div>
+        <div class="flex flex-col w-64 gap-6">
+            <PlatformSection title="Windows">
+                <DownloadButton
+                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_x64-setup.exe"
+                    label="Windows x64"
+                    extension=".exe"
+                />
+            </PlatformSection>
+
+            <PlatformSection title="Mac">
+                <DownloadButton
+                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_aarch64.dmg"
+                    label="Apple Silicon"
+                    extension=".dmg"
+                />
+            </PlatformSection>
+
+            <PlatformSection title="Linux (x64)">
+                <DownloadButton
+                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_amd64.AppImage"
+                    label="Most Distros"
+                    extension=".AppImage"
+                />
+                <DownloadButton
+                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_amd64.deb"
+                    label="Ubuntu/Debian"
+                    extension=".deb"
+                />
+                <DownloadButton
+                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy-0.1.0-1.x86_64.rpm"
+                    label="RHEL/Fedora"
+                    extension=".rpm"
+                />
+            </PlatformSection>
         </div>
     </div>
 </MainLayout>

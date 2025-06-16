@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 type Platform = "mac" | "windows" | "linux" | "unknown";
 
 const DOWNLOAD_LINKS: Record<Platform, string> = {
-  mac: "/downloads/handy-mac.dmg",
-  windows: "/downloads/handy-windows.exe",
-  linux: "/downloads/handy-linux.AppImage",
+  mac: "https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_aarch64.dmg",
+  windows:
+    "https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_x64-setup.exe",
+  linux:
+    "https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_amd64.AppImage",
   unknown: "/download", // generic / fallback
 };
 
