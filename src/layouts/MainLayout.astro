@@ -75,7 +75,7 @@ const currentPath = pathname.slice(1);
         <meta name="language" content="English" />
     </head>
     <body
-        class="flex flex-col max-w-[680px] mx-auto items-center gap-8 sm:gap-12 px-4"
+        class="flex flex-col max-w-[680px] mx-auto items-center gap-8 sm:gap-12 px-4 min-h-dvh"
     >
         <a
             href="#main-content"
@@ -106,7 +106,7 @@ const currentPath = pathname.slice(1);
             )
         }
 
-        <main id="main-content" role="main" class="w-full">
+        <main id="main-content" role="main" class="w-full flex-grow">
             <slot />
         </main>
         <Footer />
