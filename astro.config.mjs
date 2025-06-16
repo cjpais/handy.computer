@@ -13,4 +13,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  image: {
+    remotePatterns: [{ protocol: "https" }],
+  },
 });

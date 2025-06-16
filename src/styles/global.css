@@ -210,3 +210,7 @@ li > ul,
 li > ol {
     @apply mt-0 mb-0 ml-0;
 }
+
+img {
+    @apply rounded-2xl;
+}
