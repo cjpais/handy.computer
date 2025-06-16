@@ -5,7 +5,7 @@ description: "Learn about Handy - the free and open source speech to text applic
 
 # About Handy
 
-I built Handy because I broke a finger and as a result my hand was out of commision. I tried some of the existing speech-to-text apps but none were open source and extensible. So Handy was made to fill this void.
+I built Handy because I broke a finger, was put into a cast and as a result my hand was out of commision. I tried some of the existing speech-to-text apps but none were open source and extensible. So Handy was made to fill this gap.
 
 It's probably the most simple speech to text app, it's only function is to put whatever you say into a text box. Press and hold a keyboard shortcut, speak, and release. Your words appear wherever you were typing. It runs completely offline using Whisper, works across platforms, and doesn't require subscriptions or cloud services.
 
@@ -20,6 +20,7 @@ Take it, fork it, modify it, break it, fix it. Build something amazing and share
 ## Under the Hood
 
 - Press a shortcut to start/stop recording (or use push-to-talk mode)
+- Silence is removed via VAD filter (silero)
 - Transcribes your speech using Whisper Small
 - Pastes the text directly into whatever app you're using
 - Runs entirely on your machine with GPU acceleration when available
@@ -33,19 +34,20 @@ This is my first Rust project, and it shows. There are bugs, rough edges, and ar
 
 ##### Current Issues
 
-* On MacOS paste is not perfect. Occasionally you will get just 'v'
-* Occasionally an added 'thank you' at the end of transcription. Likely VAD being too permissive.
-* [Occasionally the end of your transcription will be cut off. Possibly a threading issue.]
-* [No support for Intel Macs. Neither ARM on Linux/Windows](https://github.com/cjpais/Handy/issues/8)
+* [On MacOS paste is not perfect. Occasionally you will get just 'v'](https://github.com/cjpais/Handy/issues/12)
+* [Occasionally an added 'thank you' at the end of transcription. Likely VAD being too permissive.](https://github.com/cjpais/Handy/issues/11)
+* [Occasionally the end of your transcription will be cut off. Possibly a threading issue.](https://github.com/cjpais/Handy/issues/10)
+* [No support for Intel Macs or ARM machines using Linux/Windows](https://github.com/cjpais/Handy/issues/8)
 
-**Discussions**
+##### Discussions
 
 * [Microphone is always active for best latency, is this a good choice?](https://github.com/cjpais/Handy/issues/5)
 
-**Feature Requests**
+##### Feature Requests
 
 * [Bind to only modifier keys](https://github.com/cjpais/Handy/issues/6)
 * [Choose what STT model to use](https://github.com/cjpais/Handy/issues/7)
+* [Choose what Microphone to use](https://github.com/cjpais/Handy/issues/9)
 
 ## Lend a Hand
 
@@ -53,7 +55,7 @@ Want to fix some of these issues? Come lend a hand!
 
 I'm actively looking for contributors who want to help make this codebase cleaner, more robust, and more accessible. I hope that Handy can be the simplest starter codebase for someone wanting to play around with a desktop speech to text application. There is so much possibility in voice computing interfaces that just need someone with some imagination to make real.
 
-If you love Rust and see places where the code can be better please submit PR's or reach out at [contact@handy.computer](mailto:contact@handy.computer). I would love to learn from you, and we all can learn from a well-patterned simple codebase. Let's make Handy that together.
+If you love Rust and see places where the code can be better please submit PR's or reach out at [contact@handy.computer](mailto:contact@handy.computer). I would love to learn from you, and we all can learn from a well-patterned simple codebase. Let's make Handy that codebase together.
 
 The goal is to build something that serves as both a useful tool and a foundation for others to build upon. A place where the community can come together to create something better than any one person could build alone.
 
@@ -62,13 +64,3 @@ The goal is to build something that serves as both a useful tool and a foundatio
 Download it, try it, read the code. See if it works for what you need.
 
 Your search for the right speech-to-text tool can end here—not because Handy is perfect, but because you can make it perfect for you.
-
-NOTES
-
-- i mean i would like to build more of these things and be paid, live off of this
-    - donation thing
-- this is yours now. i dont need to hold it anymore. i am here to help move it forward to the goals set out, but beyond that it is not on me.
-- i want to learn from better people than me and you can also be a great example to the community
-- detaching ego?
-- accessibiity tools should be for all.
-- designed to be fast. not the most accurate.
