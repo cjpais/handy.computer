@@ -15,21 +15,60 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
             <PlatformDownloadButton client:load />
             <a href="/download">other platforms</a>
         </div>
-        <video
-            width="640"
-            height="360"
-            src="/handy-video.webm"
-            class="rounded-2xl mb-12 bg-black ring-1 ring-handy-text/10"
-            controls
-            playsinline
-            aria-label="Handy speech-to-text demonstration video"
-        >
-            <p>
-                Your browser doesn't support HTML video. <a
-                    href="/handy-video.webm">Download the video</a
-                > instead.
-            </p>
-        </video>
+        <div class="flex flex-col items-center gap-4 mb-12">
+            <video
+                width="640"
+                height="360"
+                src="/handy-video.webm"
+                class="rounded-2xl bg-black ring-1 ring-handy-text/10"
+                controls
+                playsinline
+                aria-label="Handy speech-to-text demonstration video"
+                aria-describedby="video-transcript"
+            >
+                <track
+                    kind="captions"
+                    src="/handy-video.vtt"
+                    srclang="en"
+                    label="English captions"
+                    default
+                />
+                <p>
+                    Your browser doesn't support HTML video. <a
+                        href="/handy-video.webm">Download the video</a
+                    > instead.
+                </p>
+            </video>
+
+            <div id="video-transcript" class="sr-only">
+                <h3>Video Transcript</h3>
+                <p>
+                    CJ: Hello, I'm CJ and I want to show you Handy. Handy is an
+                    open source speech-to-text application that you can run on
+                    your own computer. Simply press a keyboard shortcut, speak,
+                    and release, and Handy will paste whatever you said into the
+                    text field you're typing into.
+                </p>
+                <p>
+                    Let's take a look at the settings menu for Handy, and it's
+                    really simple. You have a push-to-talk mode that you can
+                    enable, this is enabled by default so you press and hold the
+                    keys or alternatively you can turn it off so the
+                    transcription starts when you press the key combination and
+                    it stops when you press it again. And you can also change
+                    what key binding you would like to use for the
+                    transcription.
+                </p>
+                <p>
+                    So now it's mapped to Ctrl-Z and if I turn this off, when I
+                    hit control Z, when you look up in the top corner of my Mac
+                    here, this little transcription icon lights up. And when I
+                    click it again, it turns off and transcribes the audio.
+                    There's nothing to paste into. So it just does nothing here.
+                </p>
+                <p>So sit back, relax, and let Handy give you a hand.</p>
+            </div>
+        </div>
         <div class="w-full grid grid-cols-1 md:grid-cols-2 md:gap-12 gap-4">
             <div class="space-y-1">
                 <h2>Free</h2>
