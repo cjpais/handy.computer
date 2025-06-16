@@ -1,5 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import { Image } from "astro:assets";
+import platformIcon from "../images/icon.png";
 ---
 
 <MainLayout
@@ -7,7 +9,11 @@ import MainLayout from "../layouts/MainLayout.astro";
     description="Download Handy - the free and open source speech to text application for Windows, macOS, and Linux"
 >
     <div class="flex flex-col items-center gap-6 w-full">
-        <img src="/icon.png" width="256" />
+        <Image
+            src={platformIcon}
+            width={256}
+            alt="The handy logo, with a pink rounded circle as the background, with a white cartoon smiling hand shape in the middle."
+        />
 
         <h2 class="text-2xl font-semibold text-center mb-2">Download Handy</h2>
 

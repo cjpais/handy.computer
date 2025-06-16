@@ -31,15 +31,25 @@ That's it.
 
 This is my first Rust project, and it shows. There are bugs, rough edges, and architectural decisions that could be better. I'm documenting the known issues openly because I want everyone to understand what they are getting into, and encourage improvement in the project.
 
-**Current Issues**
+##### Current Issues
 
 * On MacOS paste is not perfect. Occasionally you will get just 'v'
-* VAD is not perfect.
-* Cutting off end of transcriptions.
+* Occasionally an added 'thank you' at the end of transcription. Likely VAD being too permissive.
+* Occasionally the end of your transcription will be cut off. Possibly a threading issue.
+* [No support for Intel Macs. Neither ARM on Linux/Windows](https://github.com/cjpais/Handy/issues/8)
+
+**Discussions**
+
+* [Microphone is always active for best latency, is this a good choice?](https://github.com/cjpais/Handy/issues/5)
+
+**Feature Requests**
+
+* [Bind to only modifier keys](https://github.com/cjpais/Handy/issues/6)
+* [Choose what STT model to use](https://github.com/cjpais/Handy/issues/7)
 
 ## Lend a Hand
 
-Want to fix some of these issues, come lend a hand!
+Want to fix some of these issues? Come lend a hand!
 
 I'm actively looking for contributors who want to help make this codebase cleaner, more robust, and more accessible. I hope that Handy can be the simplest starter codebase for someone wanting to play around with a desktop speech to text application. There is so much possibility in voice computing interfaces that just need someone with some imagination to make real.
 

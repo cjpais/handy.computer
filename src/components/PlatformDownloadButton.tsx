@@ -9,7 +9,7 @@ const DOWNLOAD_LINKS: Record<Platform, string> = {
   unknown: "/download", // generic / fallback
 };
 
-const friendlyName = (p: Platform) => (p === "unknown" ? "your OS" : p); // “download handy for your OS” as a last resort
+const friendlyName = (p: Platform) => (p === "unknown" ? "" : `for ${p}`); // “download handy for your OS” as a last resort
 
 const detectPlatform = (): Platform => {
   if (typeof window === "undefined") return "unknown"; // safety for SSR
@@ -34,7 +34,7 @@ const PlatformDownloadButton = () => {
       href={DOWNLOAD_LINKS[platform]}
       className="text-base sm:text-xl px-6 py-4 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
     >
-      {`download handy for ${friendlyName(platform)}`}
+      {`download handy ${friendlyName(platform)}`}
     </a>
   );
 };
