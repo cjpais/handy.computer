@@ -7,6 +7,16 @@
     --handy-text: #382731;
     --handy-light-pink: #f9c5e8;
     --handy-dark-pink: #61052f;
+
+    /* Typography variables */
+    --paragraph-font-size: 1rem;
+    --paragraph-line-height: 1.7;
+    --paragraph-margin-bottom: 1rem;
+
+    /* Mobile typography variables */
+    --paragraph-font-size-mobile: 0.9rem;
+    --paragraph-line-height-mobile: 1.6;
+    --paragraph-margin-bottom-mobile: 0.875rem;
 }
 
 @theme {
@@ -28,19 +38,18 @@ body {
     background-color: var(--handy-background);
 }
 
-/* Paragraphs */
+/* Update paragraphs to use variables */
 p {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 1rem;
+    font-size: var(--paragraph-font-size);
+    line-height: var(--paragraph-line-height);
+    margin-bottom: var(--paragraph-margin-bottom);
 }
 
-/* Mobile-first responsive paragraphs */
 @media (max-width: 640px) {
     p {
-        font-size: 0.9rem;
-        line-height: 1.6;
-        margin-bottom: 0.875rem;
+        font-size: var(--paragraph-font-size-mobile);
+        line-height: var(--paragraph-line-height-mobile);
+        margin-bottom: var(--paragraph-margin-bottom-mobile);
     }
 }
 
@@ -148,4 +157,56 @@ a:hover {
     overflow: visible;
     clip: auto;
     white-space: normal;
+}
+
+pre {
+    background: var(--color-bg-code);
+    padding: 0.6rem 0.8rem;
+    @apply rounded;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    @apply rounded-none;
+    white-space: pre;
+}
+
+/* Update lists to use the same variables */
+ul,
+ol {
+    @apply my-4 pl-5 list-outside;
+    font-size: var(--paragraph-font-size);
+    line-height: var(--paragraph-line-height);
+}
+
+li {
+    @apply mb-1;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+@media (max-width: 640px) {
+    ul,
+    ol {
+        font-size: var(--paragraph-font-size-mobile);
+        line-height: var(--paragraph-line-height-mobile);
+    }
+}
+
+ul {
+    @apply list-disc; /* Standard bullet points */
+}
+
+ol {
+    @apply list-decimal; /* Standard numbers */
+}
+
+/* Nested list styling */
+li > ul,
+li > ol {
+    @apply mt-0 mb-0 ml-0;
 }
