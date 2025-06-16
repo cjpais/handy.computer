@@ -1,5 +1,6 @@
 ---
 // import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import Header from "../components/Header.tsx";
 import HandyHand from "../components/logo/HandyHand";
 import "../styles/global.css";
@@ -73,7 +74,9 @@ const currentPath = pathname.slice(1);
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
     </head>
-    <body class="flex flex-col max-w-[680px] mx-auto items-center gap-12 px-4">
+    <body
+        class="flex flex-col max-w-[680px] mx-auto items-center gap-8 sm:gap-12 px-4"
+    >
         <a
             href="#main-content"
             class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-handy-pink px-4 py-2 rounded"
@@ -106,5 +109,6 @@ const currentPath = pathname.slice(1);
         <main id="main-content" role="main" class="w-full">
             <slot />
         </main>
+        <Footer />
     </body>
 </html>
