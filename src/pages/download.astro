@@ -4,6 +4,11 @@ import { Image } from "astro:assets";
 import platformIcon from "../images/icon.png";
 import PlatformSection from "../components/PlatformSection.astro";
 import DownloadButton from "../components/DownloadButton.astro";
+
+// Version configuration
+const VERSION = "0.1.1";
+const VERSION_TAG = `v${VERSION}`;
+const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/download/${VERSION_TAG}`;
 ---
 
 <MainLayout
@@ -22,7 +27,7 @@ import DownloadButton from "../components/DownloadButton.astro";
         <div class="flex flex-col w-64 sm:w-80 gap-6">
             <PlatformSection title="Mac">
                 <DownloadButton
-                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_aarch64.dmg"
+                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64.dmg`}
                     label="Apple Silicon"
                     extension=".dmg"
                 />
@@ -30,30 +35,25 @@ import DownloadButton from "../components/DownloadButton.astro";
 
             <PlatformSection title="Windows">
                 <DownloadButton
-                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_x64-setup.exe"
+                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup.exe`}
                     label="Windows x64"
                     extension=".exe"
                 />
-                <p class="!text-xs opacity-70">
-                    note: handy is in the process of being signed for windows,
-                    so smartscreen may pop up. if you are worried about the
-                    distribution, please build from source.
-                </p>
             </PlatformSection>
 
             <PlatformSection title="Linux (x64)">
                 <DownloadButton
-                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_amd64.AppImage"
+                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.AppImage`}
                     label="Most Distros"
                     extension=".AppImage"
                 />
                 <DownloadButton
-                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy_0.1.0_amd64.deb"
+                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.deb`}
                     label="Ubuntu/Debian"
                     extension=".deb"
                 />
                 <DownloadButton
-                    href="https://github.com/cjpais/Handy/releases/download/0.1.0/Handy-0.1.0-1.x86_64.rpm"
+                    href={`${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.x86_64.rpm`}
                     label="RHEL/Fedora"
                     extension=".rpm"
                 />
