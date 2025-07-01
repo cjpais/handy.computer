@@ -19,13 +19,14 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
             <video
                 width="640"
                 height="360"
-                src="/handy-video.webm"
                 class="rounded-2xl bg-black ring-1 ring-handy-text/10"
                 controls
                 playsinline
                 aria-label="Handy speech-to-text demonstration video"
                 aria-describedby="video-transcript"
             >
+                <source src="/handy-video.mp4" type="video/mp4" />
+                <source src="/handy-video.webm" type="video/webm" />
                 <track
                     kind="captions"
                     src="/handy-video.vtt"
