@@ -4,11 +4,7 @@ import { Image } from "astro:assets";
 import platformIcon from "../images/icon.png";
 import PlatformSection from "../components/PlatformSection.astro";
 import DownloadButton from "../components/DownloadButton.astro";
-
-// Version configuration
-const VERSION = "0.2.0";
-const VERSION_TAG = `v${VERSION}`;
-const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/download/${VERSION_TAG}`;
+import { PLATFORM_DOWNLOADS } from "../config/downloads";
 ---
 
 <MainLayout
@@ -27,37 +23,39 @@ const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/download/$
 
         <div class="flex flex-col w-64 sm:w-80 gap-6">
             <PlatformSection title="Mac">
-                <DownloadButton
-                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64.dmg`}
-                    label="Apple Silicon"
-                    extension=".dmg"
-                />
+                {
+                    PLATFORM_DOWNLOADS.mac.map((download) => (
+                        <DownloadButton
+                            href={download.href}
+                            label={download.label}
+                            extension={download.extension}
+                        />
+                    ))
+                }
             </PlatformSection>
 
             <PlatformSection title="Windows">
-                <DownloadButton
-                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup.exe`}
-                    label="Windows x64"
-                    extension=".exe"
-                />
+                {
+                    PLATFORM_DOWNLOADS.windows.map((download) => (
+                        <DownloadButton
+                            href={download.href}
+                            label={download.label}
+                            extension={download.extension}
+                        />
+                    ))
+                }
             </PlatformSection>
 
             <PlatformSection title="Linux (x64)">
-                <DownloadButton
-                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.AppImage`}
-                    label="Most Distros"
-                    extension=".AppImage"
-                />
-                <DownloadButton
-                    href={`${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.deb`}
-                    label="Ubuntu/Debian"
-                    extension=".deb"
-                />
-                <DownloadButton
-                    href={`${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.x86_64.rpm`}
-                    label="RHEL/Fedora"
-                    extension=".rpm"
-                />
+                {
+                    PLATFORM_DOWNLOADS.linux.map((download) => (
+                        <DownloadButton
+                            href={download.href}
+                            label={download.label}
+                            extension={download.extension}
+                        />
+                    ))
+                }
             </PlatformSection>
         </div>
     </div>
