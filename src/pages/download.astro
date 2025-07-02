@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import platformIcon from "../images/icon.png";
 import PlatformSection from "../components/PlatformSection.astro";
 import DownloadButton from "../components/DownloadButton.astro";
-import { PLATFORM_DOWNLOADS } from "../config/downloads";
+import { PLATFORM_DOWNLOADS, VERSION_TAG } from "../config/downloads";
 ---
 
 <MainLayout
@@ -19,7 +19,10 @@ import { PLATFORM_DOWNLOADS } from "../config/downloads";
             alt="The handy logo, with a pink rounded circle as the background, with a white cartoon smiling hand shape in the middle."
         />
 
-        <h1>Download Handy</h1>
+        <div class="flex flex-col items-center gap-0">
+            <h1 class="!mb-0">Download Handy</h1>
+            <div class="text-handy-text/70 font-semibold">{VERSION_TAG}</div>
+        </div>
 
         <div class="flex flex-col w-64 sm:w-80 gap-6">
             <PlatformSection title="Mac">
