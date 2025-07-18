@@ -8,7 +8,7 @@ export default defineConfig({
   site: "https://handy.computer",
   integrations: [react(), mdx()],
   adapter: cloudflare(),
-  output: "hybrid",
+  output: "server",
   build: {
     format: "file",
   },
