@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
 import HandyTextLogo from "./logo/HandyTextLogo";
+import DiscordIcon from "./icons/DiscordIcon";
+import GithubIcon from "./icons/GithubIcon";
+
+interface NavItem {
+  href: string;
+  label?: string;
+  path?: string;
+  external?: boolean;
+  icon?: React.ReactNode;
+  ariaLabel?: string;
+}
 
 interface HeaderProps {
   currentPath?: string;
@@ -24,14 +35,21 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
     return currentPath === path ? "!text-handy-pink" : "";
   };
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { href: "/download", label: "download", path: "download" },
     { href: "/about", label: "about", path: "about" },
     { href: "/buttons", label: "buttons", path: "buttons" },
     {
-      href: "https://github.com/cjpais/Handy",
-      label: "github",
+      href: "https://discord.gg/WVBeWsNXK4",
+      icon: <DiscordIcon width={20} height={20} className="fill-current" />,
       external: true,
+      ariaLabel: "Discord",
+    },
+    {
+      href: "https://github.com/cjpais/Handy",
+      icon: <GithubIcon width={20} height={20} className="fill-current" />,
+      external: true,
+      ariaLabel: "GitHub",
     },
   ];
 
@@ -48,13 +66,14 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
       <div className="hidden sm:flex gap-4 items-center">
         {navItems.map((item) => (
           <a
-            key={item.label}
+            key={item.label || item.ariaLabel}
             href={item.href}
             className={item.path ? getNavLinkClass(item.path) : ""}
             target={item.external ? "_blank" : undefined}
             rel={item.external ? "noopener noreferrer" : undefined}
+            aria-label={item.ariaLabel}
           >
-            {item.label}
+            {item.icon || item.label}
           </a>
         ))}
         <a
@@ -95,14 +114,22 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
           <div className="py-2">
             {navItems.map((item) => (
               <a
-                key={item.label}
+                key={item.label || item.ariaLabel}
                 href={item.href}
-                className={`block px-4 py-2 hover:bg-gray-50 ${item.path ? getNavLinkClass(item.path) : ""}`}
+                className={`block px-4 py-2 hover:bg-gray-50 ${item.path ? getNavLinkClass(item.path) : ""} ${item.icon ? "flex items-center gap-2" : ""}`}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
                 onClick={() => setIsMenuOpen(false)}
+                aria-label={item.ariaLabel}
               >
-                {item.label}
+                {item.icon ? (
+                  <>
+                    {item.icon}
+                    <span>{item.ariaLabel}</span>
+                  </>
+                ) : (
+                  item.label
+                )}
               </a>
             ))}
             <a
