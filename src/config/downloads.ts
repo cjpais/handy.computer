@@ -1,4 +1,4 @@
-export const VERSION = "0.3.0";
+export const VERSION = "0.3.2";
 export const VERSION_TAG = `v${VERSION}`;
 export const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/download/${VERSION_TAG}`;
 
