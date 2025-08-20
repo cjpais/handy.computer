@@ -1,7 +1,15 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import PlatformDownloadButton from "../components/PlatformDownloadButton";
+import Separator from "../components/Separator.astro";
+import SponsorLogo from "../components/SponsorLogo.astro";
 ---
+
+<style>
+    p {
+        margin-bottom: 0;
+    }
+</style>
 
 <MainLayout
     title="Handy"
@@ -15,7 +23,7 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
             <PlatformDownloadButton client:load />
             <a href="/download">other platforms</a>
         </div>
-        <div class="flex flex-col items-center gap-4 mb-12">
+        <div class="flex flex-col items-center gap-4">
             <video
                 width="640"
                 height="360"
@@ -70,6 +78,7 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
                 <p>So sit back, relax, and let Handy give you a hand.</p>
             </div>
         </div>
+        <Separator />
         <div class="w-full grid grid-cols-1 md:grid-cols-2 md:gap-12 gap-4">
             <div class="space-y-1">
                 <h2>Free</h2>
@@ -99,6 +108,40 @@ import PlatformDownloadButton from "../components/PlatformDownloadButton";
                     text box.
                 </p>
             </div>
+        </div>
+        <Separator />
+        <div class="w-full flex flex-col items-center gap-4">
+            <div class="text-center flex flex-col">
+                <h1>Sponsors</h1>
+                <p class="text-handy-text/70 -mt-2 italic">
+                    Handy has some <b>amazing</b> sponsors who help keep it free
+                    and open source
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-center sm:mt-8 mt-2 gap-4">
+                <SponsorLogo
+                    name="Wordcab"
+                    href="https://wordcab.com"
+                    imageSrc="/sponsor-images/wordcab.png"
+                />
+                <SponsorLogo
+                    name="Epicenter"
+                    href="https://github.com/epicenter-so/epicenter"
+                    imageSrc="/sponsor-images/epicenter.png"
+                />
+            </div>
+            <p class="text-handy-text/70 text-center italic">
+                Want to sponsor Handy? Feel free to <a
+                    href="https://donate.stripe.com/6oU4gz8762g9790c8Vffy0j"
+                    target="_blank">donate</a
+                >, use <a
+                    href="https://github.com/sponsors/cjpais"
+                    target="_blank">GitHub Sponsors</a
+                >, or reach out directly to <a
+                    href="mailto:contact@handy.computer"
+                    >contact@handy.computer</a
+                >
+            </p>
         </div>
     </div>
 </MainLayout>

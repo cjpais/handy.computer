@@ -1,0 +1,22 @@
+---
+export interface Props {
+    name: string;
+    href: string;
+    imageSrc: string;
+}
+
+const { name, href, imageSrc } = Astro.props;
+---
+
+<a
+    class="flex flex-col items-center hover:scale-105 transition-transform cursor-pointer group gap-2 sm:gap-0"
+    href={href}
+    target="_blank"
+>
+    <img src={imageSrc} width="56" class="!rounded-full" alt={`${name} logo`} />
+    <p
+        class="opacity-100 md:opacity-0 md:group-hover:opacity-100 group-hover:text-handy-pink transition-opacity text-handy-text sm:text-handy-pink"
+    >
+        {name}
+    </p>
+</a>
