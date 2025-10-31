@@ -18,6 +18,11 @@ export const PLATFORM_DOWNLOADS = {
       label: "Apple Silicon",
       extension: ".dmg",
     },
+    {
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64.dmg`,
+      label: "Intel (x86)",
+      extension: ".dmg",
+    },
   ],
   windows: [
     {
