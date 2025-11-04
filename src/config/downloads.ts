@@ -5,45 +5,45 @@ export const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/dow
 export type Platform = "mac" | "windows" | "linux" | "unknown";
 
 export const DOWNLOAD_LINKS: Record<Platform, string> = {
-  mac: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64.dmg`,
-  windows: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup.exe`,
-  linux: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.AppImage`,
+  mac: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64_darwin.dmg`,
+  windows: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup_windows.exe`,
+  linux: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64_linux.AppImage`,
   unknown: "/download", // fallback to download page
 };
 
 export const PLATFORM_DOWNLOADS = {
   mac: [
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64.dmg`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64_darwin.dmg`,
       label: "Apple Silicon",
       extension: ".dmg",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64.dmg`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64_darwin.dmg`,
       label: "Intel (x86)",
       extension: ".dmg",
     },
   ],
   windows: [
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup.exe`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup_windows.exe`,
       label: "Windows x64",
       extension: ".exe",
     },
   ],
   linux: [
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.AppImage`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64_linux.AppImage`,
       label: "Most Distros",
       extension: ".AppImage",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.deb`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64_linux.deb`,
       label: "Ubuntu/Debian",
       extension: ".deb",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.x86_64.rpm`,
+      href: `${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.x86_64_linux.rpm`,
       label: "RHEL/Fedora",
       extension: ".rpm",
     },
