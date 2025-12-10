@@ -5,9 +5,9 @@ export const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/dow
 export type Platform = "mac" | "windows" | "linux" | "unknown";
 
 export const DOWNLOAD_LINKS: Record<Platform, string> = {
-  mac: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64_darwin.dmg`,
-  windows: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup_windows.exe`,
-  linux: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64_linux.AppImage`,
+  mac: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64.dmg`,
+  windows: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup.exe`,
+  linux: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.AppImage`,
   unknown: "/download", // fallback to download page
 };
 
