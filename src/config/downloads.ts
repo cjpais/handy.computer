@@ -1,4 +1,4 @@
-export const VERSION = "0.6.0";
+export const VERSION = "0.6.5";
 export const VERSION_TAG = `v${VERSION}`;
 export const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/download/${VERSION_TAG}`;
 
@@ -14,36 +14,41 @@ export const DOWNLOAD_LINKS: Record<Platform, string> = {
 export const PLATFORM_DOWNLOADS = {
   mac: [
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64_darwin.dmg`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64.dmg`,
       label: "Apple Silicon",
       extension: ".dmg",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64_darwin.dmg`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64.dmg`,
       label: "Intel (x86)",
       extension: ".dmg",
     },
   ],
   windows: [
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup_windows.exe`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup.exe`,
       label: "Windows x64",
+      extension: ".exe",
+    },
+    {
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_arm64-setup.exe`,
+      label: "Windows ARM",
       extension: ".exe",
     },
   ],
   linux: [
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64_linux.AppImage`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.AppImage`,
       label: "Most Distros",
       extension: ".AppImage",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64_linux.deb`,
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.deb`,
       label: "Ubuntu/Debian",
       extension: ".deb",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.x86_64_linux.rpm`,
+      href: `${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.x86_64.rpm`,
       label: "RHEL/Fedora",
       extension: ".rpm",
     },
