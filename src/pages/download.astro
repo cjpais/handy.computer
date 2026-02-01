@@ -37,9 +37,21 @@ import { PLATFORM_DOWNLOADS, VERSION_TAG } from "../config/downloads";
                 }
             </PlatformSection>
 
-            <PlatformSection title="Windows">
+            <PlatformSection title="Windows (x64)">
                 {
-                    PLATFORM_DOWNLOADS.windows.map((download) => (
+                    PLATFORM_DOWNLOADS.windowsX64.map((download) => (
+                        <DownloadButton
+                            href={download.href}
+                            label={download.label}
+                            extension={download.extension}
+                        />
+                    ))
+                }
+            </PlatformSection>
+
+            <PlatformSection title="Windows (ARM)">
+                {
+                    PLATFORM_DOWNLOADS.windowsArm.map((download) => (
                         <DownloadButton
                             href={download.href}
                             label={download.label}
@@ -51,7 +63,19 @@ import { PLATFORM_DOWNLOADS, VERSION_TAG } from "../config/downloads";
 
             <PlatformSection title="Linux (x64)">
                 {
-                    PLATFORM_DOWNLOADS.linux.map((download) => (
+                    PLATFORM_DOWNLOADS.linuxX64.map((download) => (
+                        <DownloadButton
+                            href={download.href}
+                            label={download.label}
+                            extension={download.extension}
+                        />
+                    ))
+                }
+            </PlatformSection>
+
+            <PlatformSection title="Linux (ARM)">
+                {
+                    PLATFORM_DOWNLOADS.linuxArm.map((download) => (
                         <DownloadButton
                             href={download.href}
                             label={download.label}

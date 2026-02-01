@@ -1,4 +1,4 @@
-export const VERSION = "0.7.0";
+export const VERSION = "0.7.1";
 export const VERSION_TAG = `v${VERSION}`;
 export const GITHUB_RELEASE_BASE = `https://github.com/cjpais/Handy/releases/download/${VERSION_TAG}`;
 
@@ -24,19 +24,31 @@ export const PLATFORM_DOWNLOADS = {
       extension: ".dmg",
     },
   ],
-  windows: [
+  windowsX64: [
     {
       href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64-setup.exe`,
-      label: "Windows x64",
+      label: "Installer",
       extension: ".exe",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_arm64-setup.exe`,
-      label: "Windows ARM",
-      extension: ".exe",
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64_en-US.msi`,
+      label: "MSI",
+      extension: ".msi",
     },
   ],
-  linux: [
+  windowsArm: [
+    {
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_arm64-setup.exe`,
+      label: "Installer",
+      extension: ".exe",
+    },
+    {
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_arm64_en-US.msi`,
+      label: "MSI",
+      extension: ".msi",
+    },
+  ],
+  linuxX64: [
     {
       href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_amd64.AppImage`,
       label: "Most Distros",
@@ -49,6 +61,23 @@ export const PLATFORM_DOWNLOADS = {
     },
     {
       href: `${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.x86_64.rpm`,
+      label: "RHEL/Fedora",
+      extension: ".rpm",
+    },
+  ],
+  linuxArm: [
+    {
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_aarch64.AppImage`,
+      label: "Most Distros",
+      extension: ".AppImage",
+    },
+    {
+      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_arm64.deb`,
+      label: "Ubuntu/Debian",
+      extension: ".deb",
+    },
+    {
+      href: `${GITHUB_RELEASE_BASE}/Handy-${VERSION}-1.aarch64.rpm`,
       label: "RHEL/Fedora",
       extension: ".rpm",
     },
