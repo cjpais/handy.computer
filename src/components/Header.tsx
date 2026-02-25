@@ -32,13 +32,15 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
   }, []);
 
   const getNavLinkClass = (path: string) => {
-    return currentPath === path ? "!text-handy-pink" : "";
+    return currentPath === path || currentPath.startsWith(path + "/")
+      ? "!text-handy-pink"
+      : "";
   };
 
   const navItems: NavItem[] = [
     { href: "/download", label: "download", path: "download" },
     { href: "/about", label: "about", path: "about" },
-    { href: "/buttons", label: "buttons", path: "buttons" },
+    { href: "/docs", label: "docs", path: "docs" },
     {
       href: "https://discord.gg/WVBeWsNXK4",
       icon: <DiscordIcon width={20} height={20} className="fill-current" />,

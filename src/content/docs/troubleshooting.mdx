@@ -1,0 +1,71 @@
+---
+title: "Troubleshooting"
+description: "Debug mode, platform-specific notes, and solutions to common issues."
+order: 8
+---
+
+## Debug Mode
+
+Enable debug mode to see detailed logs:
+
+1. Launch Handy with the `--debug` flag, or
+2. Set the environment variable `HANDY_DEBUG=1`
+
+Debug logs include model loading times, audio device info, transcription timing, and paste method details.
+
+## Common Issues
+
+### Handy isn't transcribing anything
+
+- Check that your microphone is not muted
+- Make sure a model has been downloaded (check settings)
+- Try switching to a different microphone in settings
+- Enable debug mode to check for errors
+
+### Text isn't being pasted
+
+- Make sure your cursor is in a text field before starting transcription
+- Try switching the paste method in settings
+- On macOS, ensure Handy has Accessibility permissions (**System Settings → Privacy & Security → Accessibility**)
+- On Linux, some Wayland compositors may need additional configuration for simulated input
+
+### Slow transcription
+
+- Try a smaller model (Tiny or Base)
+- Check that GPU acceleration is being used (visible in debug logs)
+- Close other GPU-intensive applications
+
+### Microphone not detected
+
+- Check system audio settings to ensure the mic is recognized
+- Try unplugging and reconnecting the microphone
+- On Linux, check that PulseAudio or PipeWire is running
+
+## Platform-Specific Notes
+
+### macOS
+
+- Handy requires **Accessibility** and **Microphone** permissions
+- If Handy can't paste, re-add it in **System Settings → Privacy & Security → Accessibility**
+- Metal GPU acceleration is used automatically
+
+### Windows
+
+- Run the installer as administrator if you encounter permission issues
+- Vulkan drivers are required for GPU acceleration
+- Make sure your audio drivers are up to date
+
+### Linux
+
+- AppImage requires FUSE (`sudo apt install libfuse2` on Ubuntu/Debian)
+- Wayland users may need `xdg-desktop-portal` for paste to work
+- X11 generally works out of the box
+- Vulkan drivers are needed for GPU acceleration (`vulkan-tools` to verify)
+
+## Getting Help
+
+If you're still stuck:
+
+- Join the [Discord](https://discord.gg/WVBeWsNXK4) and ask in the support channel
+- Open an issue on [GitHub](https://github.com/cjpais/Handy)
+- Email [contact@handy.computer](mailto:contact@handy.computer)

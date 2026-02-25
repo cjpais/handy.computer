@@ -1,0 +1,45 @@
+---
+interface NavLink {
+    slug: string;
+    title: string;
+}
+
+interface Props {
+    prev?: NavLink;
+    next?: NavLink;
+}
+
+const { prev, next } = Astro.props;
+---
+
+{
+    (prev || next) && (
+        <nav
+            class="flex justify-between items-center mt-12 pt-6 border-t border-handy-text/20"
+            aria-label="Documentation navigation"
+        >
+            {prev ? (
+                <a
+                    href={`/docs/${prev.slug}`}
+                    class="flex flex-col text-sm hover:text-handy-pink"
+                >
+                    <span class="text-handy-text/50 !font-normal text-xs">Previous</span>
+                    <span>&larr; {prev.title}</span>
+                </a>
+            ) : (
+                <div />
+            )}
+            {next ? (
+                <a
+                    href={`/docs/${next.slug}`}
+                    class="flex flex-col items-end text-sm hover:text-handy-pink"
+                >
+                    <span class="text-handy-text/50 !font-normal text-xs">Next</span>
+                    <span>{next.title} &rarr;</span>
+                </a>
+            ) : (
+                <div />
+            )}
+        </nav>
+    )
+}

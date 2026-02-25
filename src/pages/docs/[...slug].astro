@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from "astro:content";
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import DocsSidebar from "../../components/DocsSidebar.astro";
+import DocsMobileNav from "../../components/DocsMobileNav.astro";
+import DocNav from "../../components/DocNav.astro";
+import AlphaBadge from "../../components/AlphaBadge.astro";
+
+export async function getStaticPaths() {
+    const docs = await getCollection("docs");
+    const sorted = docs.sort((a, b) => a.data.order - b.data.order);
+    const sidebarDocs = sorted.map((d) => ({ id: d.id, title: d.data.title, alpha: d.data.alpha }));
+
+    return sorted.map((doc, i) => ({
+        params: { slug: doc.id },
+        props: {
+            doc,
+            sidebarDocs,
+            prev: i > 0 ? { slug: sorted[i - 1].id, title: sorted[i - 1].data.title } : undefined,
+            next: i < sorted.length - 1 ? { slug: sorted[i + 1].id, title: sorted[i + 1].data.title } : undefined,
+        },
+    }));
+}
+
+const { doc, sidebarDocs, prev, next } = Astro.props;
+const { Content, headings } = await render(doc);
+---
+
+<DocsLayout title={doc.data.title} description={doc.data.description}>
+    <DocsSidebar slot="sidebar" docs={sidebarDocs} currentId={doc.id} headings={headings} />
+    <article class="doc-content">
+        <div class="flex items-center gap-3 mb-6">
+            <DocsMobileNav docs={sidebarDocs} currentId={doc.id} />
+            <h1 class="!mb-0">{doc.data.title}</h1>
+            {doc.data.alpha && <AlphaBadge />}
+        </div>
+        <Content />
+        <DocNav prev={prev} next={next} />
+    </article>
+</DocsLayout>
+
+<style>
+    .doc-content :global(h2) {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        scroll-margin-top: 2rem;
+    }
+    .doc-content :global(h3) {
+        font-size: 1.25rem;
+        margin-top: 1.5rem;
+        scroll-margin-top: 2rem;
+    }
+    .doc-content :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+        font-size: 0.9rem;
+    }
+    .doc-content :global(th),
+    .doc-content :global(td) {
+        text-align: left;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid rgba(56, 39, 49, 0.1);
+    }
+    .doc-content :global(th) {
+        font-weight: 600;
+    }
+    .doc-content :global(code) {
+        font-size: 0.875rem;
+        background: rgba(56, 39, 49, 0.06);
+        padding: 0.15rem 0.35rem;
+        border-radius: 0.25rem;
+    }
+    .doc-content :global(pre code) {
+        background: none;
+        padding: 0;
+    }
+</style>

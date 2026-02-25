@@ -1,0 +1,55 @@
+---
+interface DocEntry {
+    id: string;
+    title: string;
+}
+
+interface Props {
+    docs: DocEntry[];
+    currentId: string;
+}
+
+const { docs, currentId } = Astro.props;
+---
+
+<details class="docs-mobile-nav lg:hidden relative">
+    <summary class="flex items-center cursor-pointer" aria-label="Navigate docs">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="text-handy-text/40">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+    </summary>
+    <nav class="absolute left-0 top-full mt-2 w-56 py-2 bg-background border border-handy-text/10 rounded-lg shadow-lg z-50" aria-label="Documentation navigation">
+        <ul>
+            {docs.map((doc) => {
+                const isActive = doc.id === currentId;
+                return (
+                    <li>
+                        <a
+                            href={doc.id === "getting-started" ? "/docs" : `/docs/${doc.id}`}
+                            class={`block text-sm py-1.5 px-4 ${
+                                isActive
+                                    ? "text-handy-pink font-semibold"
+                                    : "!font-normal text-handy-text/60"
+                            }`}
+                            aria-current={isActive ? "page" : undefined}
+                        >
+                            {doc.title}
+                        </a>
+                    </li>
+                );
+            })}
+        </ul>
+    </nav>
+</details>
+
+<style>
+    .docs-mobile-nav ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+    .docs-mobile-nav summary::marker,
+    .docs-mobile-nav summary::-webkit-details-marker {
+        display: none;
+    }
+</style>

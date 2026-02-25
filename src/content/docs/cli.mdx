@@ -1,0 +1,59 @@
+---
+title: "CLI"
+description: "Command-line flags, scripting, and window manager integration."
+order: 7
+---
+
+## Overview
+
+Handy can be launched from the command line with flags to customize its behavior. This is useful for scripting, automation, and window manager integration.
+
+## Flags
+
+```bash
+handy [OPTIONS]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--model <MODEL>` | Set the speech-to-text model to use |
+| `--language <LANG>` | Set the language code (e.g., `en`, `es`, `de`) |
+| `--push-to-talk` | Enable push-to-talk mode |
+| `--no-overlay` | Disable the recording overlay |
+| `--debug` | Enable debug logging |
+
+## Scripting
+
+You can use Handy in scripts to capture speech-to-text output. This is especially useful for automation workflows.
+
+## Window Manager Integration
+
+Handy works well with tiling window managers and custom keybinding setups:
+
+### Hyprland
+
+```bash
+bind = $mainMod SHIFT, period, exec, handy --push-to-talk
+```
+
+### sway / i3
+
+```bash
+bindsym $mod+Shift+period exec handy --push-to-talk
+```
+
+### macOS (Hammerspoon)
+
+```lua
+hs.hotkey.bind({"cmd", "shift"}, ".", function()
+    hs.execute("/Applications/Handy.app/Contents/MacOS/handy --push-to-talk")
+end)
+```
+
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `HANDY_MODEL` | Default model to use |
+| `HANDY_LANGUAGE` | Default language code |
+| `HANDY_DEBUG` | Enable debug mode (`1` or `true`) |

@@ -1,0 +1,125 @@
+---
+interface DocEntry {
+    id: string;
+    title: string;
+    alpha?: boolean;
+}
+
+interface Heading {
+    depth: number;
+    slug: string;
+    text: string;
+}
+
+interface Props {
+    docs: DocEntry[];
+    currentId: string;
+    headings: Heading[];
+}
+
+const { docs, currentId, headings } = Astro.props;
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+<aside
+    class="docs-sidebar hidden lg:block absolute right-full top-2 bottom-0 mr-8 w-48"
+    aria-label="Documentation navigation"
+>
+    <nav class="sticky top-8">
+        <ul class="space-y-0.5 border-l-2 border-handy-text/10">
+            {
+                docs.map((doc) => {
+                    const isActive = doc.id === currentId;
+                    return (
+                        <>
+                            <li>
+                                <a
+                                    href={
+                                        doc.id === "getting-started"
+                                            ? "/docs"
+                                            : `/docs/${doc.id}`
+                                    }
+                                    class={`block text-sm py-1 pl-3 -ml-[2px] border-l-2 ${
+                                        isActive
+                                            ? "text-handy-pink border-handy-pink font-semibold"
+                                            : "!font-normal text-handy-text/60 hover:text-handy-pink border-transparent hover:border-handy-pink"
+                                    }`}
+                                    aria-current={isActive ? "page" : undefined}
+                                >
+                                    {doc.title}
+                                </a>
+                            </li>
+                            {isActive &&
+                                tocHeadings.length > 0 &&
+                                tocHeadings.map((heading) => (
+                                    <li>
+                                        <a
+                                            href={`#${heading.slug}`}
+                                            data-heading-link={heading.slug}
+                                            class={`toc-link block text-xs py-0.5 -ml-[2px] border-l-2 border-transparent !font-normal text-handy-text/40 hover:text-handy-pink hover:border-handy-pink transition-colors ${
+                                                heading.depth === 3
+                                                    ? "pl-8"
+                                                    : "pl-6"
+                                            }`}
+                                        >
+                                            {heading.text.replace(/#$/, "").trim()}
+                                        </a>
+                                    </li>
+                                ))}
+                        </>
+                    );
+                })
+            }
+        </ul>
+    </nav>
+</aside>
+
+<style>
+    .docs-sidebar ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+    .toc-link.active {
+        color: var(--handy-pink);
+        border-left-color: var(--handy-pink);
+    }
+</style>
+
+<script>
+    function initScrollSpy() {
+        const links = document.querySelectorAll<HTMLAnchorElement>("[data-heading-link]");
+        if (!links.length) return;
+
+        const slugs = Array.from(links).map((l) => l.dataset.headingLink!);
+        const headings = slugs
+            .map((s) => document.getElementById(s))
+            .filter(Boolean) as HTMLElement[];
+
+        if (!headings.length) return;
+
+        const OFFSET = 100;
+
+        function update() {
+            let activeSlug = headings[0].id;
+
+            for (const h of headings) {
+                if (h.getBoundingClientRect().top < OFFSET) {
+                    activeSlug = h.id;
+                } else {
+                    break;
+                }
+            }
+
+            links.forEach((link) => {
+                link.classList.toggle("active", link.dataset.headingLink === activeSlug);
+            });
+        }
+
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+    }
+
+    initScrollSpy();
+    document.addEventListener("astro:page-load", initScrollSpy);
+</script>

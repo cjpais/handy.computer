@@ -1,0 +1,81 @@
+---
+title: "Models"
+description: "Choose the right speech-to-text model for your language, speed, and accuracy needs."
+order: 2
+---
+
+import LanguageList from "../../components/LanguageList.tsx";
+
+## Overview
+
+Handy supports multiple speech-to-text models. All models run locally on your machine. Nothing is sent to the cloud.
+
+## Parakeet
+
+[NVIDIA's Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) models are optimized for western languages. **Parakeet V3 is the recommended model** for most users. It's fast, accurate, and supports 25 languages.
+
+Parakeet writes out numbers as words (e.g. "one", "two", "three") rather than digits. Language is detected automatically and cannot be manually specified.
+
+| Model | Size | Speed | Accuracy | Languages |
+|-------|------|-------|----------|-----------|
+| [Parakeet V3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) | ~478 MB | Fast | High | 25 European languages |
+| [Parakeet V2](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2) | ~473 MB | Fast | High | English only |
+
+<LanguageList client:load title="Parakeet V3 Supported Languages" languages={["English", "Spanish", "French", "German", "Portuguese", "Russian", "Italian", "Polish", "Dutch", "Romanian", "Ukrainian", "Czech", "Greek", "Swedish", "Hungarian", "Bulgarian", "Danish", "Finnish", "Slovak", "Croatian", "Lithuanian", "Slovenian", "Latvian", "Estonian", "Maltese"]} />
+
+## Whisper
+
+[OpenAI's Whisper](https://huggingface.co/openai/whisper-large-v3) models support 99+ languages and optional translation to English. Best choice if you need broad multilingual support.
+
+Whisper outputs numbers as digits (e.g. "1", "2", "3") and allows you to specify which language to transcribe, or let it auto-detect. **Whisper Medium** is a great balance of speed and accuracy for users with capable hardware.
+
+| Model | Size | Speed | Accuracy | Translation |
+|-------|------|-------|----------|-------------|
+| [Small](https://huggingface.co/openai/whisper-small) | ~487 MB | Fast | Good | Yes |
+| [Medium](https://huggingface.co/openai/whisper-medium) | ~492 MB | Moderate | Better | Yes |
+| [Large](https://huggingface.co/openai/whisper-large-v3) | ~1.1 GB | Slower | Best | Yes |
+| [Turbo](https://huggingface.co/openai/whisper-large-v3-turbo) | ~1.6 GB | Moderate | High | No |
+
+<LanguageList client:load title="Whisper Supported Languages" languages={["English", "Chinese (Simplified)", "Chinese (Traditional)", "Spanish", "Hindi", "Arabic", "French", "Portuguese", "Bengali", "Russian", "Japanese", "Indonesian", "German", "Korean", "Turkish", "Vietnamese", "Italian", "Thai", "Urdu", "Polish", "Ukrainian", "Dutch", "Romanian", "Persian", "Malay", "Tamil", "Telugu", "Tagalog", "Swahili", "Czech", "Greek", "Hungarian", "Swedish", "Hebrew", "Norwegian", "Danish", "Finnish", "Marathi", "Gujarati", "Kannada", "Malayalam", "Punjabi", "Serbian", "Croatian", "Bulgarian", "Slovak", "Catalan", "Lithuanian", "Slovenian", "Latvian", "Estonian", "Nepali", "Sinhala", "Amharic", "Khmer", "Lao", "Myanmar", "Azerbaijani", "Uzbek", "Kazakh", "Georgian", "Armenian", "Albanian", "Bosnian", "Macedonian", "Cantonese", "Javanese", "Sundanese", "Hausa", "Yoruba", "Somali", "Mongolian", "Pashto", "Sindhi", "Assamese", "Afrikaans", "Malagasy", "Shona", "Lingala", "Galician", "Basque", "Welsh", "Icelandic", "Maltese", "Belarusian", "Turkmen", "Tajik", "Tatar", "Bashkir", "Tibetan", "Maori", "Luxembourgish", "Faroese", "Breton", "Occitan", "Haitian Creole", "Hawaiian", "Latin", "Sanskrit", "Yiddish"]} />
+
+### Breeze ASR
+
+A Whisper variant optimized for Taiwanese Mandarin with code-switching support (~1.1 GB).
+
+## Moonshine
+
+Moonshine models are lightweight and English-only. Great for quick transcription on lower-powered hardware.
+
+| Model | Size | Speed | Accuracy |
+|-------|------|-------|----------|
+| V2 Tiny | ~31 MB | Fastest | Lower |
+| V2 Small | ~100 MB | Very fast | Good |
+| V2 Medium | ~192 MB | Fast | Better |
+| Base | ~58 MB | Very fast | Good |
+
+## SenseVoice
+
+SenseVoice is a fast model from FunAudioLLM supporting a small set of East Asian languages plus English.
+
+| Model | Size | Speed | Accuracy | Languages |
+|-------|------|-------|----------|-----------|
+| SenseVoice | ~160 MB | Fastest | Good | 5 languages |
+
+<LanguageList client:load title="SenseVoice Supported Languages" languages={["Chinese", "English", "Japanese", "Korean", "Cantonese"]} />
+
+## Changing Your Model
+
+Open Handy's settings and select a model from the dropdown. New models will be downloaded on first use.
+
+## Speed vs. Accuracy
+
+- **Fastest transcription**: Moonshine or SenseVoice for English/supported languages
+- **Best all-rounder**: Parakeet V3 for European languages
+- **Best multilingual**: Whisper Small or Medium
+- **Best accuracy**: Whisper Large
+
+## Hardware Considerations
+
+- **macOS**: GPU acceleration via Metal is used automatically
+- **Windows/Linux**: Vulkan GPU acceleration is used when available
+- **CPU fallback**: If no GPU is detected, Handy falls back to CPU transcription

@@ -1,0 +1,52 @@
+---
+title: "Post-Processing"
+description: "Use AI providers and custom prompts to clean up, reformat, or transform your transcriptions."
+order: 5
+alpha: true
+---
+
+## Overview
+
+Post-processing lets you run your transcription through an AI language model before it gets pasted. This can fix grammar, reformat text, translate, or apply any custom transformation you want.
+
+## Setting Up a Provider
+
+To use post-processing, you need to configure an AI provider in Handy's settings:
+
+1. Open Handy settings
+2. Go to the Post-Processing section
+3. Select a provider (e.g., OpenAI, Anthropic, or a local model)
+4. Enter your API key
+
+## Custom Prompts
+
+You can write custom prompts that tell the AI how to process your text. Use the `${output}` template variable to reference the transcription.
+
+### Example Prompts
+
+**Fix grammar and punctuation:**
+```
+Fix any grammar or punctuation errors in the following text,
+but don't change the meaning or tone: ${output}
+```
+
+**Convert to bullet points:**
+```
+Convert the following text into concise bullet points: ${output}
+```
+
+**Translate to Spanish:**
+```
+Translate the following English text to Spanish: ${output}
+```
+
+## The `${output}` Template
+
+The `${output}` variable in your prompt is replaced with the raw transcription before being sent to the AI. This lets you place the transcription anywhere in your prompt.
+
+## Tips
+
+- Keep prompts concise for faster processing
+- Test your prompts with short recordings first
+- Post-processing adds latency since it requires an API call
+- You can disable post-processing at any time without losing your prompt configuration
