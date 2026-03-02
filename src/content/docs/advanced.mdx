@@ -1,12 +1,14 @@
 ---
 title: "Advanced"
-description: "App behavior, auto-submit, custom words, history management, and experimental features."
-order: 7
+description: "App behavior, overlay, transcription features, auto-submit, custom words, history management, and experimental features."
+order: 5
 ---
 
-The Advanced settings tab contains options for app behavior, text output tweaks, history management, and experimental features. Access these in **Settings > Advanced**.
+import DocImage from '../../components/DocImage.astro';
 
-For paste methods and typing tools, see the dedicated [Paste Methods](/docs/paste-methods) page.
+The Advanced settings tab contains options for app behavior, text output tweaks, history management, and experimental features. Access these in **Settings > Advanced**. For paste methods and typing tools, see the dedicated [Paste Methods](/docs/paste-methods) page.
+
+<DocImage src="/docs/handy-advanced.png" alt="Handy Advanced Settings" />
 
 ## App
 
@@ -32,20 +34,28 @@ Control where the visual feedback overlay appears during recording and transcrip
 
 On Linux, **None** is recommended because the overlay can steal focus from the target window and prevent pasting.
 
+#### Overlay States
+
+The overlay shows the current state:
+
+- **Recording** - Handy is listening to your microphone
+- **Processing...** - Transcription is running (and post-processing, if enabled)
+
+**Note:** The (x) button on the overlay cancels the recording and discards all audio. It does not stop and transcribe. To stop recording and get your transcription, press the keyboard shortcut again.
+
+### Cancelling a Recording
+
+If you start recording by accident, you can cancel:
+
+- Press `Escape` while recording to cancel without transcribing
+- Click the (x) button on the overlay
+- The overlay will disappear and nothing will be pasted
+
+You can customize the cancel shortcut in the [Debug](/docs/debug) settings (not available on Linux).
+
 ### Unload Model
 
-Automatically free GPU/CPU memory when the model has not been used for a specified time. This is useful if you run other GPU-intensive applications and want Handy to release memory when idle.
-
-Options:
-- Never
-- Immediately
-- After 2 minutes
-- After 5 minutes
-- After 10 minutes
-- After 15 minutes
-- After 1 hour
-
-You can also right-click the system tray icon and select "Unload Model" to free memory manually.
+Automatically free GPU/CPU memory when the model has not been used for a specified time, ranging from immediately to after 1 hour. Set to "Never" to always keep the model loaded in memory, or "Immediately" to free memory as soon as transcription finishes. This is useful if you run other GPU-intensive applications and want Handy to release memory when idle. You can also right-click the system tray icon and select "Unload Model" to free memory manually.
 
 ## Output
 
@@ -71,7 +81,7 @@ Control what happens to your clipboard after Handy pastes text.
 
 ### Custom Words
 
-Add words that are frequently misheard during transcription. Handy will automatically correct similar-sounding words to match your list. This is useful for names, jargon, or technical terms the model gets wrong.
+Add words that are frequently misheard during transcription. Handy will automatically correct similar-sounding words to match your list. This is useful for names, jargon, or technical terms the model gets wrong. This is very imperfect. If you want better results the [experimental post processing feature](/docs/post-processing) is probably your best bet.
 
 Examples:
 
@@ -91,18 +101,13 @@ When enabled, Handy adds a space after the pasted transcription. Convenient for 
 
 ### History Limit
 
-Set the maximum number of history entries to keep. Older entries are removed when the limit is reached.
+Set the maximum number of history entries to keep. Older entries are removed when the limit is reached. Set this to **0** to disable history entirely.
 
 ### Auto-Delete Recordings
 
-Automatically delete old audio recordings to save disk space.
+Automatically delete old audio recordings to save disk space. You can keep only the latest N recordings (using your History Limit value), or delete recordings older than a set period (3 days, 2 weeks, or 3 months).
 
-Options:
-- Never
-- Keep latest N recordings
-- After 3 days
-- After 2 weeks
-- After 3 months
+For viewing and managing your transcription history, see the [History](/docs/history) page.
 
 ## Experimental Features
 

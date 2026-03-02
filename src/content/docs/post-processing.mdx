@@ -1,13 +1,17 @@
 ---
 title: "Post-Processing"
 description: "Use AI providers and custom prompts to clean up, reformat, or transform your transcriptions."
-order: 6
+order: 7
 alpha: true
 ---
+
+import DocImage from '../../components/DocImage.astro';
 
 ## Overview
 
 Post-processing lets you run your transcription through an AI language model before it gets pasted. This can fix grammar, reformat text, translate, insert punctuation, or apply any custom transformation you want.
+
+<DocImage src="/docs/handy-post.png" alt="Handy Post-Processing Settings" />
 
 ## Enabling Post-Processing
 
@@ -47,9 +51,7 @@ Handy supports several AI providers for post-processing:
 
 ## Dedicated Hotkey
 
-You can set a separate keyboard shortcut specifically for transcription with post-processing. This lets you keep your normal shortcut for plain transcription and use a different one when you want AI processing applied.
-
-Configure this in the Post-Processing settings section.
+Post-processing has its own dedicated keyboard shortcut, separate from the normal transcription shortcut. Only this shortcut triggers post-processing. The regular transcription shortcut always gives you plain output. You can customize it in the Post-Processing settings section.
 
 ## Custom Prompts
 
@@ -87,14 +89,6 @@ The `${output}` variable in your prompt is replaced with the raw transcription b
 
 You can use any local LLM server that provides an OpenAI-compatible API.
 
-### Ollama
-
-1. Install and start [Ollama](https://ollama.com)
-2. Pull a model: `ollama pull llama3.1:8b`
-3. In Handy, set the provider to **Custom**
-4. Set the Base URL to `http://localhost:11434/v1`
-5. Select your model and write a prompt
-
 ### LM Studio
 
 1. Install and start [LM Studio](https://lmstudio.ai)
@@ -103,23 +97,11 @@ You can use any local LLM server that provides an OpenAI-compatible API.
 4. Set the Base URL to `http://localhost:1234/v1`
 5. Select your model and write a prompt
 
-### handy-local-rules
-
-[handy-local-rules](https://github.com/ahoendgen/handy-local-rules) is a community project that provides an OpenAI-compatible endpoint specifically designed for Handy post-processing.
-
 ## Recommended Models
 
-Avoid models under 3B parameters - they often can't follow post-processing instructions reliably.
+If you are using cloud based providers, I would try and pick a relatively smart model. Most OpenAI, Claude, and Gemini models will work just fine. If you are using OpenRouter, try to use a model which is >20B in size.
 
-**Cloud** (fast, low cost):
-- GPT-4o-mini (OpenAI)
-- Claude Haiku (Anthropic)
-- Gemini Flash (via OpenRouter)
-- GLM-4.5-Air (Z.AI)
-
-**Local** (on your hardware):
-- 8B+ parameter models recommended (e.g., Llama 3.1 8B, Mistral 7B)
-- Smaller models may ignore instructions or produce unexpected output
+For local models I've had decent success with Qwen3 8B and larger. Most models above 8B should do okay, but you cannot expect perfection from them always. You may need to tun your prompt.
 
 ## Limitations
 
@@ -131,11 +113,3 @@ Avoid models under 3B parameters - they often can't follow post-processing instr
 ## Community Prompts
 
 Check [Discussion #715](https://github.com/cjpais/handy/discussions/715) where users share prompts for grammar fixing, punctuation insertion, formatting, and more.
-
-## Tips
-
-- Keep prompts concise for faster processing
-- Test your prompts with short recordings first
-- You can disable post-processing at any time without losing your prompt configuration
-- The overlay shows a "Processing..." state while the AI is working
-- Check the logs (About page) to verify post-processing is making API calls

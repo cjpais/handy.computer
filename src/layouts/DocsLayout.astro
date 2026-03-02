@@ -63,7 +63,7 @@ const currentPath = pathname.slice(1);
         <meta name="language" content="English" />
     </head>
     <body
-        class="flex flex-col max-w-[680px] mx-auto items-center gap-8 sm:gap-12 px-4 min-h-dvh"
+        class="flex flex-col max-w-[680px] mx-auto items-center px-4 min-h-dvh"
     >
         <a
             href="#main-content"
@@ -73,10 +73,16 @@ const currentPath = pathname.slice(1);
         </a>
         <Header currentPath={currentPath} client:load />
 
-        <main id="main-content" role="main" class="w-full flex-grow relative">
+        <main
+            id="main-content"
+            role="main"
+            class="w-full flex-grow relative mt-8 sm:mt-12"
+        >
             <slot name="sidebar" />
             <slot />
         </main>
-        <Footer />
+        <div class="w-full -mt-2">
+            <Footer />
+        </div>
     </body>
 </html>

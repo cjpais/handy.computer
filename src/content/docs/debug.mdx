@@ -15,16 +15,10 @@ Open the debug menu with a keyboard shortcut:
 
 Once opened, a **Debug** tab appears in the settings sidebar. It stays visible until you close and reopen Handy.
 
-You can also enable debug mode from the command line:
+On Linux, you can also enable debug mode from the command line (see [CLI](/docs/cli)):
 
 ```bash
 handy --debug
-```
-
-Or with an environment variable:
-
-```bash
-HANDY_DEBUG=1 handy
 ```
 
 ## Debug Settings
@@ -51,8 +45,8 @@ Choose a sound theme for the recording start and stop feedback. Different themes
 
 Controls how aggressively custom word corrections are applied. This is a sensitivity slider from 0.0 to 1.0 (default: 0.18).
 
-- **Lower values** - More aggressive matching (corrects more words, but may produce false matches)
-- **Higher values** - Stricter matching (only corrects very close matches)
+- **Lower values** - Stricter matching (only corrects very close matches)
+- **Higher values** - More aggressive matching (corrects more words, but may produce false matches)
 
 This works in conjunction with the Custom Words list in [Advanced](/docs/advanced#custom-words) settings.
 

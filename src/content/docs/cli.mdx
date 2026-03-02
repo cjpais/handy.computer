@@ -6,6 +6,8 @@ order: 9
 
 ## Overview
 
+The CLI is primarily for **Linux users**, especially those using tiling window managers or Wayland compositors where global keyboard shortcuts don't always work natively. On macOS and Windows, the GUI handles everything and you generally don't need the command line.
+
 Handy can be launched from the command line with flags to customize its behavior. This is useful for scripting, automation, and window manager integration.
 
 ## Flags
@@ -80,19 +82,3 @@ GNOME on Wayland doesn't support global shortcuts from third-party apps. Use a c
 1. Open **Settings > Keyboard > Keyboard Shortcuts > Custom Shortcuts**
 2. Add a new shortcut with the command: `pkill -USR2 -x handy`
 3. Assign your preferred key combination
-
-### macOS (Hammerspoon)
-
-```lua
-hs.hotkey.bind({"cmd", "shift"}, ".", function()
-    hs.execute("/Applications/Handy.app/Contents/MacOS/handy --push-to-talk")
-end)
-```
-
-## Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `HANDY_MODEL` | Default model to use |
-| `HANDY_LANGUAGE` | Default language code |
-| `HANDY_DEBUG` | Enable debug mode (`1` or `true`) |
