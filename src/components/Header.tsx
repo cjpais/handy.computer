@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import HandyTextLogo from "./logo/HandyTextLogo";
 import DiscordIcon from "./icons/DiscordIcon";
 import GithubIcon from "./icons/GithubIcon";
+import DonateButton from "./DonateButton";
 
 interface NavItem {
   href: string;
@@ -78,14 +79,7 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
             {item.icon || item.label}
           </a>
         ))}
-        <a
-          href="https://donate.stripe.com/6oU4gz8762g9790c8Vffy0j"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-5 py-[6px] rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink"
-        >
-          donate
-        </a>
+        <DonateButton variant="header" />
       </div>
 
       {/* Mobile Menu Button */}
@@ -134,15 +128,7 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "" }) => {
                 )}
               </a>
             ))}
-            <a
-              href="https://donate.stripe.com/6oU4gz8762g9790c8Vffy0j"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block mx-4 my-2 px-5 py-2 rounded-lg bg-handy-pink !text-handy-dark-pink hover:bg-handy-light-pink text-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              donate
-            </a>
+            <DonateButton variant="mobile" onClick={() => setIsMenuOpen(false)} />
           </div>
         </div>
       )}

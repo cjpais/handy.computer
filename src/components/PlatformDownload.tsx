@@ -130,7 +130,7 @@ function Instructions({ platform }: { platform: PlatformTab }) {
           Open the <code className={codeStyle}>.dmg</code> and drag Handy to
           your Applications folder.
         </p>
-        <p className="m-0 mb-1">Or install via Homebrew:</p>
+        <p className="m-0 mb-1">Or install via Homebrew (community-maintained cask):</p>
         <CopyableCode code="brew install --cask handy" />
       </div>
     );

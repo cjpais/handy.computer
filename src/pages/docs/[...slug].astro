@@ -71,6 +71,11 @@ const { Content, headings } = await render(doc);
         padding: 0.15rem 0.35rem;
         border-radius: 0.25rem;
     }
+    .doc-content :global(hr) {
+        border: none;
+        border-top: 1px solid rgba(56, 39, 49, 0.2);
+        margin: 2rem 0;
+    }
     .doc-content :global(pre) {
         margin: 0.5rem 0;
     }
