@@ -7,6 +7,7 @@ order: 1
 import PlatformDownload from '../../components/PlatformDownload.tsx';
 import PlatformPermissions from '../../components/PlatformPermissions.tsx';
 import PlatformShortcuts from '../../components/PlatformShortcuts.tsx';
+import DefaultShortcut from '../../components/DefaultShortcut.tsx';
 
 ## Download & Install
 
@@ -20,8 +21,8 @@ import PlatformShortcuts from '../../components/PlatformShortcuts.tsx';
 
 On first launch, Handy will ask you to pick a speech-to-text model to download. All models run entirely on your device.
 
-- **Parakeet V3** (~478 MB) is recommended for English and European languages. Fast and accurate.
-- **Whisper** is best for multilingual support with 99+ languages. Choose Small (~487 MB) for a good balance of speed and accuracy, or a larger variant if accuracy is critical.
+- **Parakeet V3** is recommended for English and European languages. It's generally very fast on all machines, and very accurate.
+- **Whisper** is best for multilingual support with 99+ languages. Choose Medium for a good balance of transcription performance and transcription speed. Use Small if you're on a less powerful machine.
 
 See the [models page](/docs/models) for the full list of models and supported languages.
 
@@ -30,7 +31,7 @@ Once your model finishes downloading, Handy is ready to go. You'll see it appear
 ## Your First Transcription
 
 1. Click into any text field (a browser, editor, chat app, anywhere you can type)
-2. Press the default shortcut to start recording
+2. Press the default shortcut (<DefaultShortcut client:load />) to start recording
 3. Speak naturally
 4. Press the shortcut again (or release if using push-to-talk)
 5. Your words appear in the text field
@@ -43,6 +44,7 @@ That's it. Handy transcribes your speech locally and pastes the result wherever 
 
 ## Next Steps
 
+- Configure your [general settings](/docs/general) like microphone and audio feedback
 - Learn about [model selection](/docs/models) to pick the right model for your language and speed needs
 - Explore [transcription modes](/docs/transcription) like push-to-talk and toggle
 - Set up [post-processing](/docs/post-processing) to clean up or reformat your text with AI

@@ -1,7 +1,7 @@
 ---
 title: "CLI"
-description: "Command-line flags, scripting, and window manager integration."
-order: 7
+description: "Command-line flags, signal control, scripting, and window manager integration."
+order: 9
 ---
 
 ## Overview
@@ -21,6 +21,29 @@ handy [OPTIONS]
 | `--push-to-talk` | Enable push-to-talk mode |
 | `--no-overlay` | Disable the recording overlay |
 | `--debug` | Enable debug logging |
+| `--toggle-transcription` | Toggle transcription on/off in a running instance |
+| `--toggle-transcription-post-process` | Toggle transcription with post-processing on/off |
+
+The `--toggle-transcription` and `--toggle-transcription-post-process` flags communicate with an already-running Handy instance. If Handy is recording, it stops and transcribes. If idle, it starts recording. This is useful for binding to window manager shortcuts.
+
+## Signal Control
+
+On macOS and Linux, you can control a running Handy instance using Unix signals:
+
+| Signal | Action |
+|--------|--------|
+| `SIGUSR2` | Toggle transcription (start/stop recording) |
+| `SIGUSR1` | Toggle transcription with post-processing |
+
+```bash
+# Toggle transcription
+pkill -USR2 -x handy
+
+# Toggle transcription with post-processing
+pkill -USR1 -x handy
+```
+
+Signal control is the **recommended approach for Wayland** where global keyboard shortcuts often don't work natively. Bind the signal command to a shortcut in your compositor.
 
 ## Scripting
 
@@ -28,19 +51,35 @@ You can use Handy in scripts to capture speech-to-text output. This is especiall
 
 ## Window Manager Integration
 
-Handy works well with tiling window managers and custom keybinding setups:
+Handy works well with tiling window managers and custom keybinding setups. Use either CLI flags or signals to control Handy from your compositor.
 
 ### Hyprland
 
 ```bash
-bind = $mainMod SHIFT, period, exec, handy --push-to-talk
+# Using signals (recommended)
+bind = $mainMod SHIFT, period, exec, pkill -USR2 -x handy
+
+# Using CLI flags
+bind = $mainMod SHIFT, period, exec, handy --toggle-transcription
 ```
 
 ### sway / i3
 
 ```bash
-bindsym $mod+Shift+period exec handy --push-to-talk
+# Using signals (recommended)
+bindsym $mod+Shift+period exec pkill -USR2 -x handy
+
+# Using CLI flags
+bindsym $mod+Shift+period exec handy --toggle-transcription
 ```
+
+### GNOME (Wayland)
+
+GNOME on Wayland doesn't support global shortcuts from third-party apps. Use a custom shortcut that sends a signal:
+
+1. Open **Settings > Keyboard > Keyboard Shortcuts > Custom Shortcuts**
+2. Add a new shortcut with the command: `pkill -USR2 -x handy`
+3. Assign your preferred key combination
 
 ### macOS (Hammerspoon)
 

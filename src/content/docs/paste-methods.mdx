@@ -1,0 +1,121 @@
+---
+title: "Paste Methods"
+description: "How Handy inserts text, which paste method to use, typing tools for Linux, and clipboard handling."
+order: 5
+---
+
+After transcription, Handy pastes the result into whatever text field your cursor is in. How it does this depends on the paste method you have configured in **Settings > Advanced**.
+
+For most users on macOS, the default just works. On Windows and Linux, you may need to switch methods depending on your setup.
+
+## Available Methods
+
+### Clipboard (Cmd/Ctrl+V)
+
+The default on macOS and Windows. Copies text to the clipboard and simulates a standard paste keystroke. Works in most applications and is the most reliable method for general use.
+
+### Ctrl+Shift+V
+
+Available on Windows and Linux. Useful for applications that intercept `Ctrl+V` for other purposes, or terminals that use `Ctrl+Shift+V` for paste.
+
+### Shift+Insert
+
+Available on Windows and Linux. Good for terminal emulators, SSH clients, and older applications that support this legacy paste shortcut.
+
+**This is the recommended method for pasting into Windows Terminal, Command Prompt, and PowerShell.** Standard clipboard paste may not work in these applications because they handle `Ctrl+V` differently.
+
+### Direct Input
+
+Types text character-by-character without using the clipboard. Useful for applications that don't support paste at all.
+
+**Important:** Direct input does not account for non-US keyboard layouts. If you use AZERTY, QWERTZ, or other non-QWERTY layouts, the output will be garbled. Use a clipboard-based method instead.
+
+### None
+
+Copies the transcription to your clipboard but does not simulate any paste keystroke. Useful if you:
+- Switch windows during transcription and want to paste manually
+- Only need the text in your clipboard
+- Use a clipboard manager to handle the output
+
+### External Script (Linux only)
+
+Runs a custom script to handle pasting. You specify the script path in the settings. The transcription text is passed to the script. Useful for custom Wayland setups or specialized workflows.
+
+## Which Method Should I Use?
+
+| Situation | Recommended Method |
+|-----------|-------------------|
+| General use on macOS | Clipboard (Cmd+V) |
+| General use on Windows | Clipboard (Ctrl+V) |
+| Windows Terminal / CMD / PowerShell | Shift+Insert |
+| Linux (X11) | Clipboard (Ctrl+V) |
+| Linux (Wayland) | Clipboard (Ctrl+V) with appropriate typing tool |
+| Terminal emulators | Ctrl+Shift+V or Shift+Insert |
+| Apps that intercept Ctrl+V | Ctrl+Shift+V |
+| Apps that don't support paste | Direct Input |
+| Clipboard manager workflows | None |
+| Custom Linux/Wayland setup | External Script |
+
+If a paste method is not working for you, try alternatives from this list. The defaults work for most users, but specific applications or system configurations may need a different approach.
+
+## Typing Tools (Linux)
+
+On Linux, when using a clipboard-based paste method, Handy needs a typing tool to simulate the paste keystroke. You can select which tool to use in **Settings > Advanced**. This setting only appears on Linux.
+
+| Tool | Best For |
+|------|----------|
+| **Auto** (Recommended) | Handy picks the best available tool automatically |
+| **wtype** | Wayland compositors (sway, Hyprland) |
+| **kwtype** | KDE/KWin Wayland |
+| **dotool** | Wayland - works across most compositors |
+| **ydotool** | Wayland - requires the ydotoold daemon running |
+| **xdotool** | X11 sessions |
+
+If paste is not working on your Linux setup, try switching to a different typing tool. You may need to install the tool first:
+
+- **Arch**: `sudo pacman -S wtype` (or other tool name)
+- **Debian/Ubuntu**: Check your compositor's documentation for the recommended tool
+
+### Compositor Recommendations
+
+- **X11**: Works out of the box with xdotool
+- **Wayland (sway, Hyprland)**: Use `wtype`
+- **Wayland (KDE/KWin)**: Try `ydotool`, `dotool`, or `kwtype`
+- **Wayland (GNOME)**: See [Discussion #718](https://github.com/cjpais/handy/discussions/718) for GNOME-specific setup
+
+## Clipboard Handling
+
+Handy has two clipboard handling modes, configurable in **Settings > Advanced**:
+
+- **Don't Modify Clipboard** - Handy restores your previous clipboard contents after pasting. Your clipboard history is preserved.
+- **Copy to Clipboard** - Handy leaves the transcription in your clipboard after pasting. Useful if you want to paste the same text again elsewhere.
+
+## Paste Delay
+
+If Handy is pasting the wrong text (e.g., your previous clipboard contents instead of the transcription), you may need to increase the paste delay. This is the time Handy waits between copying text to the clipboard and sending the paste keystroke.
+
+The default is 60ms. You can increase it in the [Debug](/docs/debug) settings. Try values between 60-200ms.
+
+## Troubleshooting
+
+### Text is not being pasted
+
+- Make sure your cursor is in a text field before starting transcription
+- Try switching to a different paste method
+- On macOS, ensure Handy has Accessibility permissions (**System Settings > Privacy & Security > Accessibility**)
+- On Linux, check that the appropriate typing tool is installed and selected
+- Try increasing the paste delay in [Debug](/docs/debug) settings
+
+### Garbled text with non-QWERTY keyboards
+
+If you see garbled characters when using AZERTY, QWERTZ, or other non-US keyboard layouts, you are likely using the Direct Input paste method. Switch to a clipboard-based method (Clipboard, Ctrl+Shift+V, or Shift+Insert).
+
+### Paste not working in elevated/admin applications (Windows)
+
+Windows prevents non-elevated processes from sending input to elevated windows. If Handy cannot paste into an application running as administrator, run Handy as administrator too.
+
+### Paste not working in terminals
+
+- **Windows Terminal / CMD / PowerShell**: Use the Shift+Insert paste method
+- **Linux terminals**: Try Ctrl+Shift+V paste method
+- **SSH sessions**: Try Shift+Insert

@@ -53,6 +53,14 @@ Moonshine models are lightweight and English-only. Great for quick transcription
 | V2 Medium | ~192 MB | Fast | Better |
 | Base | ~58 MB | Very fast | Good |
 
+## GigaAM v3
+
+GigaAM v3 is a Russian speech recognition model. It supports punctuation, Latin characters, and digits. A good choice for Russian speakers who want fast, accurate local transcription.
+
+| Model | Size | Speed | Accuracy | Languages |
+|-------|------|-------|----------|-----------|
+| GigaAM v3 | ~225 MB | Fast | High | Russian |
+
 ## SenseVoice
 
 SenseVoice is a fast model from FunAudioLLM supporting a small set of East Asian languages plus English.
@@ -71,11 +79,18 @@ Open Handy's settings and select a model from the dropdown. New models will be d
 
 - **Fastest transcription**: Moonshine or SenseVoice for English/supported languages
 - **Best all-rounder**: Parakeet V3 for European languages
+- **Best for Russian**: GigaAM v3
 - **Best multilingual**: Whisper Small or Medium
 - **Best accuracy**: Whisper Large
 
+## Custom Models
+
+As an experimental feature, you can load custom Whisper-compatible models. Place a `.bin` model file in the `models/` directory inside your Handy app data folder (check **About** for the path). Handy will discover it on the next launch.
+
 ## Hardware Considerations
 
-- **macOS**: GPU acceleration via Metal is used automatically
-- **Windows/Linux**: Vulkan GPU acceleration is used when available
-- **CPU fallback**: If no GPU is detected, Handy falls back to CPU transcription
+**Whisper models** use GPU acceleration automatically:
+- **macOS**: Metal
+- **Windows/Linux**: Vulkan
+
+**All other models** (Parakeet, Moonshine, SenseVoice, GigaAM) currently run on CPU only. GPU acceleration support is coming soon.

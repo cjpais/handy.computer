@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   PLATFORM_DOWNLOADS,
   VERSION_TAG,
@@ -88,6 +88,35 @@ const DOWNLOADS: Record<PlatformTab, DownloadGroup[]> = {
   ],
 };
 
+function CopyableCode({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="relative group">
+      <pre className="!text-xs !leading-relaxed !bg-handy-text/5 px-3 py-2 pr-10 !rounded-lg font-mono overflow-x-auto my-2 select-all">
+        {code}
+      </pre>
+      <button
+        onClick={handleCopy}
+        className="absolute top-1/2 -translate-y-1/2 right-2 p-1 rounded bg-transparent hover:bg-handy-text/5 text-handy-text/30 hover:text-handy-text/60 transition-colors cursor-pointer"
+        aria-label="Copy to clipboard"
+      >
+        {copied ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        )}
+      </button>
+    </div>
+  );
+}
+
 function Instructions({ platform }: { platform: PlatformTab }) {
   const codeStyle = "text-xs bg-handy-text/5 px-1.5 py-0.5 rounded font-mono";
   const preStyle =
@@ -97,10 +126,12 @@ function Instructions({ platform }: { platform: PlatformTab }) {
   if (platform === "mac") {
     return (
       <div className="text-sm leading-relaxed text-handy-text/70 mt-3">
-        <p className="m-0 !mb-0">
+        <p className="m-0 !mb-2">
           Open the <code className={codeStyle}>.dmg</code> and drag Handy to
           your Applications folder.
         </p>
+        <p className="m-0 mb-1">Or install via Homebrew:</p>
+        <CopyableCode code="brew install --cask handy" />
       </div>
     );
   }
@@ -123,9 +154,7 @@ function Instructions({ platform }: { platform: PlatformTab }) {
         For the <code className={codeStyle}>.AppImage</code>, make it executable
         and run it:
       </p>
-      <pre className={preStyle}>
-        {"chmod +x Handy_*.AppImage\n./Handy_*.AppImage"}
-      </pre>
+      <CopyableCode code={"chmod +x Handy_*.AppImage\n./Handy_*.AppImage"} />
       <p className="!mb-0">
         For Ubuntu/Debian or Fedora/RHEL, you can also install the{" "}
         <code className={codeStyle}>.deb</code> or{" "}

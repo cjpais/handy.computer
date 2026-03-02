@@ -168,6 +168,10 @@ pre {
     max-width: 100%;
 }
 
+pre.astro-code {
+    @apply !bg-handy-text/[0.02] border border-handy-text/8 !rounded-xl;
+}
+
 pre code {
     background: none;
     padding: 0;

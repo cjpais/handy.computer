@@ -1,22 +1,55 @@
 ---
 title: "Post-Processing"
 description: "Use AI providers and custom prompts to clean up, reformat, or transform your transcriptions."
-order: 5
+order: 6
 alpha: true
 ---
 
 ## Overview
 
-Post-processing lets you run your transcription through an AI language model before it gets pasted. This can fix grammar, reformat text, translate, or apply any custom transformation you want.
+Post-processing lets you run your transcription through an AI language model before it gets pasted. This can fix grammar, reformat text, translate, insert punctuation, or apply any custom transformation you want.
 
-## Setting Up a Provider
+## Enabling Post-Processing
 
-To use post-processing, you need to configure an AI provider in Handy's settings:
+Post-processing is behind the experimental features toggle:
 
-1. Open Handy settings
-2. Go to the Post-Processing section
-3. Select a provider (e.g., OpenAI, Anthropic, or a local model)
-4. Enter your API key
+1. Go to **Settings > Advanced > Experimental Features**
+2. Scroll down and enable **Post Processing**
+3. A new **Post-Processing** section will appear in the settings sidebar
+4. Configure a provider, enter your API key, select a model, and write a prompt
+
+## Providers
+
+Handy supports several AI providers for post-processing:
+
+### Cloud Providers
+
+| Provider | Notes |
+|----------|-------|
+| **OpenAI** | GPT-4o-mini recommended |
+| **Anthropic** | Claude Haiku recommended |
+| **OpenRouter** | Access many models through a single API key |
+| **Groq** | Very fast inference |
+| **Cerebras** | Fast inference |
+| **Z.AI** | GLM-4.5-Air recommended |
+
+### On-Device
+
+| Provider | Requirements |
+|----------|-------------|
+| **Apple Intelligence** | macOS with Apple Silicon, macOS 26+ |
+
+### Custom Endpoint
+
+| Provider | Notes |
+|----------|-------|
+| **Custom** | Any OpenAI-compatible API endpoint - use this for local LLMs |
+
+## Dedicated Hotkey
+
+You can set a separate keyboard shortcut specifically for transcription with post-processing. This lets you keep your normal shortcut for plain transcription and use a different one when you want AI processing applied.
+
+Configure this in the Post-Processing settings section.
 
 ## Custom Prompts
 
@@ -40,13 +73,69 @@ Convert the following text into concise bullet points: ${output}
 Translate the following English text to Spanish: ${output}
 ```
 
+**Convert spoken punctuation to symbols:**
+```
+Convert spoken punctuation words to their symbols (e.g., "period" to ".",
+"comma" to ",", "new line" to a line break). Don't change anything else: ${output}
+```
+
 ## The `${output}` Template
 
 The `${output}` variable in your prompt is replaced with the raw transcription before being sent to the AI. This lets you place the transcription anywhere in your prompt.
+
+## Local LLM Setup
+
+You can use any local LLM server that provides an OpenAI-compatible API.
+
+### Ollama
+
+1. Install and start [Ollama](https://ollama.com)
+2. Pull a model: `ollama pull llama3.1:8b`
+3. In Handy, set the provider to **Custom**
+4. Set the Base URL to `http://localhost:11434/v1`
+5. Select your model and write a prompt
+
+### LM Studio
+
+1. Install and start [LM Studio](https://lmstudio.ai)
+2. Load a model and start the local server
+3. In Handy, set the provider to **Custom**
+4. Set the Base URL to `http://localhost:1234/v1`
+5. Select your model and write a prompt
+
+### handy-local-rules
+
+[handy-local-rules](https://github.com/ahoendgen/handy-local-rules) is a community project that provides an OpenAI-compatible endpoint specifically designed for Handy post-processing.
+
+## Recommended Models
+
+Avoid models under 3B parameters - they often can't follow post-processing instructions reliably.
+
+**Cloud** (fast, low cost):
+- GPT-4o-mini (OpenAI)
+- Claude Haiku (Anthropic)
+- Gemini Flash (via OpenRouter)
+- GLM-4.5-Air (Z.AI)
+
+**Local** (on your hardware):
+- 8B+ parameter models recommended (e.g., Llama 3.1 8B, Mistral 7B)
+- Smaller models may ignore instructions or produce unexpected output
+
+## Limitations
+
+- **Adds latency** - Post-processing requires an API round-trip (or local inference time) after transcription completes
+- **Cloud providers require internet** - If you are offline, post-processing will fail (transcription still works)
+- **Small models may not follow instructions** - Models under 3B parameters often ignore prompts or produce unreliable results
+- **Thinking/reasoning models** - Models that include chain-of-thought reasoning may output reasoning tags in the result
+
+## Community Prompts
+
+Check [Discussion #715](https://github.com/cjpais/handy/discussions/715) where users share prompts for grammar fixing, punctuation insertion, formatting, and more.
 
 ## Tips
 
 - Keep prompts concise for faster processing
 - Test your prompts with short recordings first
-- Post-processing adds latency since it requires an API call
 - You can disable post-processing at any time without losing your prompt configuration
+- The overlay shows a "Processing..." state while the AI is working
+- Check the logs (About page) to verify post-processing is making API calls

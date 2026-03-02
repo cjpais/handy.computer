@@ -1,0 +1,59 @@
+---
+title: "General"
+description: "Keyboard shortcuts, push-to-talk, microphone selection, audio feedback, and sound settings."
+order: 3
+---
+
+import DocImage from '../../components/DocImage.astro';
+
+The General settings tab contains your core recording and audio configuration. These are the settings most users will interact with day-to-day.
+
+<DocImage src="/docs/handy-general.png" alt="Handy General Settings" />
+
+## Transcribe Shortcut
+
+The keyboard shortcut used to record and transcribe your voice. In the default push-to-talk mode, hold the shortcut to record and release it to stop. In toggle mode, press once to start and again to stop.
+
+The default shortcut is `Option + Space` on macOS and `Ctrl + Space` on Windows/Linux. You can customize this by clicking the shortcut field and pressing your preferred key combination.
+
+On macOS, many people like using the `Fn` key. On Windows and Linux, shortcuts require at least one modifier key (Ctrl, Alt, Shift) plus a regular key by default. You can enable the experimental Handy Keys implementation in [Advanced](/docs/advanced#keyboard-implementation) settings for more flexible bindings.
+
+## Push To Talk
+
+Hold the shortcut to record, release to stop. This is the default recording mode and is great for quick dictation. It avoids accidentally leaving the mic on.
+
+### Toggle Mode
+
+When Push To Talk is disabled, Handy uses toggle mode instead. Press the shortcut once to start recording, press again to stop and transcribe.
+
+## Sound
+
+### Microphone
+
+Select which microphone Handy uses for recording. By default, Handy uses your system's default input device. If you have multiple microphones (USB, Bluetooth, built-in), you can pick a specific one here. On a Macbook we highly recommend using the built in microphone. Also note bluetooth devices can have issues with Handy. We are working on improving support for bluetooth microphones.
+
+Use the refresh button next to the dropdown to rescan for newly connected devices.
+
+### Mute While Recording
+
+When enabled, Handy mutes your system audio while recording. This prevents notification sounds, music, or video calls from being picked up by your microphone and appearing in the transcription.
+
+### Audio Feedback
+
+When enabled, Handy plays a sound when recording starts and stops. This gives you a clear audio cue that Handy is listening.
+
+### Output Device
+
+Choose which audio device plays the feedback sounds. Only available when Audio Feedback is enabled. Use the refresh button to rescan for devices.
+
+### Volume
+
+Adjust the volume of the audio feedback sounds. Only available when Audio Feedback is enabled.
+
+## Tips for Better Audio
+
+- Use a dedicated USB or Bluetooth microphone for clearer input
+- Position the microphone close to your mouth
+- Reduce background noise when possible (close windows, turn off fans)
+- If transcription quality is poor, check your input level in system audio settings
+- On macOS laptops, closing the lid (clamshell mode) automatically switches to any connected external microphone

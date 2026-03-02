@@ -1,0 +1,148 @@
+---
+title: "FAQ"
+description: "Frequently asked questions about Handy, organized by topic."
+order: 11
+---
+
+## General
+
+**Q: What is "Christopher Pais" in my macOS Login Items?**
+That is the developer's name (CJ Pais). Handy is signed under a personal Apple developer account, so macOS shows the developer's name instead of "Handy" in Login Items & Extensions. This is cosmetic and expected.
+
+**Q: What is "YNYNG LLC" that signed the Windows update?**
+YNYNG LLC is the developer's business entity used for Windows code signing. Updates signed by YNYNG LLC are legitimate Handy updates.
+
+**Q: Does Handy send any data to the cloud?**
+No. All speech-to-text transcription happens locally on your device. The only network requests are for downloading models and checking for updates. If you enable post-processing with a cloud AI provider, transcriptions are sent to that provider's API.
+
+**Q: Can Handy transcribe system audio (video calls, YouTube, etc.)?**
+Not currently. Handy only transcribes microphone input.
+
+**Q: Does Handy support real-time / live captions?**
+Not yet. Handy records a segment, then transcribes it. Real-time streaming transcription is a planned feature.
+
+**Q: Where does Handy store its data?**
+See [Debug > App Data Directory](/docs/debug#app-data-directory) for the full list of paths. You can also find it on the About page in settings.
+
+**Q: Can Handy start automatically when I log in?**
+Yes. Enable **Launch on Startup** in **Settings > Advanced**. You can also enable **Start Hidden** to launch directly to the system tray. See [Advanced](/docs/advanced#launch-on-startup).
+
+**Q: How do I change the UI language?**
+Handy supports 18+ languages (English, Spanish, French, German, Japanese, Chinese, Korean, Arabic, Turkish, Czech, Portuguese, Ukrainian, Russian, Italian, Polish, Vietnamese, and more with RTL support). Change the language on the About page.
+
+---
+
+## Models & Transcription
+
+**Q: Which model should I use for English?**
+**Parakeet V3** is recommended for most English users. It is fast, accurate, and the most stable. If you need the absolute best accuracy and have capable hardware, try Whisper Medium or Large. For very low-powered hardware, try Moonshine. See [Models](/docs/models) for the full list.
+
+**Q: Why does Parakeet write out numbers as words instead of digits?**
+This is a Parakeet model behavior. It outputs "one hundred twenty three" instead of "123". If you need digit output, use a Whisper model instead, or use [post-processing](/docs/post-processing) to convert words to digits.
+
+**Q: Whisper crashes when I select it. What can I do?**
+See [Troubleshooting > Whisper crashes](/docs/troubleshooting#whisper-crashes) for solutions.
+
+**Q: Can I say "period", "comma", or "new line" to insert punctuation?**
+Not directly. The speech-to-text models do not support voice-commanded punctuation natively. You can use [post-processing](/docs/post-processing) with a custom prompt to convert spoken punctuation words into symbols. Users have shared prompts for this in [Discussion #715](https://github.com/cjpais/handy/discussions/715).
+
+**Q: Why does Parakeet translate my non-English speech into English?**
+Parakeet is primarily an English model. If it detects non-English speech, it may produce English output or gibberish. Use Whisper, SenseVoice, or GigaAM models for non-English languages. See [Models](/docs/models) for language support details.
+
+**Q: Whisper keeps adding "thank you" or "bye bye" at the end**
+This is a known Whisper hallucination, especially with short recordings or silence at the end. Handy automatically filters common hallucination artifacts. If it persists, try keeping recordings concise or use Parakeet, which does not have this issue.
+
+**Q: My long recording (>5 minutes) failed or produced no output**
+Current STT models do not handle very long audio well. Keep recordings under 3-5 minutes for best results.
+
+**Q: The model download failed and now I cannot re-download it**
+See [Troubleshooting > Failed model download](/docs/troubleshooting#failed-model-download).
+
+**Q: How do I free up GPU memory (VRAM) when not using Handy?**
+Configure the model unload timeout in **Settings > Advanced**. You can also right-click the system tray icon and select "Unload Model". See [Advanced > Unload Model](/docs/advanced#unload-model).
+
+**Q: Can I load a custom Whisper model?**
+Yes, as an experimental feature. Place a Whisper-compatible `.bin` model file in the models directory and Handy can discover it. See [Models](/docs/models#custom-models) for details.
+
+---
+
+## Pasting & Output
+
+**Q: What paste methods are available?**
+Handy supports 6 paste methods. See the [Paste Methods](/docs/paste-methods) page for full details on each method and when to use them.
+
+**Q: Handy pastes garbled text with my non-English keyboard layout (AZERTY, QWERTZ, etc.)**
+This happens when using the Direct Input paste method. Switch to a clipboard-based method. See [Paste Methods](/docs/paste-methods#garbled-text-with-non-qwerty-keyboards).
+
+**Q: Handy is not pasting into my terminal / Windows Terminal**
+Try the **Shift+Insert** paste method for Windows terminals, or **Ctrl+Shift+V** for Linux terminals. See [Paste Methods](/docs/paste-methods#which-method-should-i-use).
+
+**Q: How do I find the debug menu / where is setting X?**
+Open the debug menu with `Cmd+Shift+D` (macOS) or `Ctrl+Shift+D` (Windows/Linux). See the [Debug](/docs/debug) page for a full list of debug settings.
+
+---
+
+## Keyboard Shortcuts
+
+**Q: Can I use modifier-only shortcuts (e.g., just Ctrl+Shift)?**
+Yes. You can set shortcuts to modifier-only combinations. On macOS, the Fn/Globe key is also supported as a modifier.
+
+**Q: The (x) button on the overlay discarded my recording!**
+The (x) button cancels the recording and discards all audio. It does not stop and transcribe. To stop recording and get your transcription, press the keyboard shortcut again.
+
+---
+
+## Post-Processing
+
+**Q: How do I set up post-processing?**
+Enable it in **Settings > Advanced > Experimental Features**, then toggle **Post Processing**. A new Post Process section will appear in the sidebar. See the [Post-Processing](/docs/post-processing) guide for full setup.
+
+**Q: How do I verify post-processing is actually working?**
+Check the logs (see [Debug > Finding Logs](/docs/debug#finding-logs)). You should see API calls being made to your provider. The overlay also shows a "Processing..." state during post-processing.
+
+**Q: Can I use a local LLM for post-processing?**
+Yes. See [Post-Processing > Local LLM Setup](/docs/post-processing#local-llm-setup) for step-by-step instructions with Ollama, LM Studio, and other local providers.
+
+**Q: Where can I find good post-processing prompts?**
+Check [Discussion #715](https://github.com/cjpais/handy/discussions/715) where users share prompts for grammar fixing, punctuation insertion, formatting, and more.
+
+---
+
+## macOS
+
+**Q: Can I install Handy via Homebrew?**
+Yes: `brew install --cask handy`
+
+---
+
+## Windows
+
+**Q: I get "vulkan-1.dll not found" error**
+Update your GPU drivers. See [Troubleshooting](/docs/troubleshooting#vulkan-1dll-not-found-windows) for details.
+
+**Q: Handy cannot paste into apps running as administrator**
+Run Handy as administrator too. Windows prevents non-elevated processes from sending input to elevated windows.
+
+---
+
+## Linux
+
+**Q: AppImage fails with GLIBC error on Ubuntu 22.04**
+The AppImage requires GLIBC 2.38+. Use the `.deb` package instead, or upgrade to Ubuntu 24.04+. See [Troubleshooting](/docs/troubleshooting#appimage-glibc-error-linux).
+
+**Q: The overlay steals focus and prevents pasting**
+Set **Overlay Position** to **None** in **Settings > Advanced**. See [Advanced > Overlay Position](/docs/advanced#overlay-position).
+
+**Q: Which paste/typing method should I use on Linux?**
+See [Paste Methods > Typing Tools](/docs/paste-methods#typing-tools-linux) for compositor-specific recommendations.
+
+**Q: How do I control Handy from a window manager or script?**
+Use Unix signals or CLI flags. See [CLI](/docs/cli#signal-control) for examples and window manager configuration.
+
+**Q: I cannot download models behind a corporate proxy/firewall**
+You can manually download models and place them in the models directory:
+1. Open **About** to find your app data directory
+2. Navigate to or create the `models/` folder
+3. Download the model `.bin` file manually (from HuggingFace or the download URL)
+4. Place the `.bin` file directly in the `models/` directory
+5. Restart Handy

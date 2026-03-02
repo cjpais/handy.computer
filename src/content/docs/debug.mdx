@@ -1,0 +1,101 @@
+---
+title: "Debug"
+description: "Enable the debug menu, adjust logging, paste delay, sound themes, and other advanced diagnostics."
+order: 8
+---
+
+The Debug menu contains advanced diagnostic and tuning settings that are hidden from the main UI. These settings are useful for troubleshooting issues or fine-tuning Handy's behavior.
+
+## Enabling the Debug Menu
+
+Open the debug menu with a keyboard shortcut:
+
+- **macOS**: `Cmd + Shift + D`
+- **Windows/Linux**: `Ctrl + Shift + D`
+
+Once opened, a **Debug** tab appears in the settings sidebar. It stays visible until you close and reopen Handy.
+
+You can also enable debug mode from the command line:
+
+```bash
+handy --debug
+```
+
+Or with an environment variable:
+
+```bash
+HANDY_DEBUG=1 handy
+```
+
+## Debug Settings
+
+### Log Level
+
+Set the verbosity of logging. Higher levels produce more detailed logs, which is useful when reporting bugs or diagnosing issues.
+
+- **Error** - Only errors
+- **Warn** - Errors and warnings
+- **Info** - General information
+- **Debug** - Detailed debug information (default when debug mode is on)
+- **Trace** - Maximum verbosity
+
+### Check for Updates
+
+Toggle whether Handy automatically checks for new versions. Enabled by default.
+
+### Sound Theme
+
+Choose a sound theme for the recording start and stop feedback. Different themes provide different audio cues. You can preview them by starting and stopping a recording.
+
+### Word Correction Threshold
+
+Controls how aggressively custom word corrections are applied. This is a sensitivity slider from 0.0 to 1.0 (default: 0.18).
+
+- **Lower values** - More aggressive matching (corrects more words, but may produce false matches)
+- **Higher values** - Stricter matching (only corrects very close matches)
+
+This works in conjunction with the Custom Words list in [Advanced](/docs/advanced#custom-words) settings.
+
+### Paste Delay
+
+The delay (in milliseconds) between Handy copying text to the clipboard and sending the paste keystroke. The default is 60ms.
+
+If Handy is pasting the wrong text (e.g., your previous clipboard contents instead of the transcription), increase this value. Try 100-200ms. The maximum is 200ms.
+
+### Always-On Microphone
+
+Keep the microphone active at all times for faster recording response. When disabled (the default), Handy only activates the microphone when you press the shortcut, which adds a small delay.
+
+### Clamshell Microphone
+
+On laptops, specify which microphone to use when the lid is closed (clamshell mode). This is useful if you use an external display and want Handy to automatically switch to an external microphone when the laptop is closed.
+
+### Cancel Shortcut
+
+Set a keyboard shortcut to cancel the current recording. This is an alternative to pressing Escape.
+
+**Not available on Linux** due to instability with dynamic shortcut registration.
+
+This setting is disabled when Push To Talk is enabled, since releasing the key already stops recording.
+
+## Finding Logs
+
+Handy stores its logs on disk. You can find the log directory from:
+
+- The **About** page in settings (look for "Log Directory")
+- The debug menu also shows the directory path
+
+Typical log locations:
+- **macOS**: `~/Library/Logs/com.pais.handy/`
+- **Windows**: `%APPDATA%/com.pais.handy/logs/`
+- **Linux**: `~/.local/share/com.pais.handy/logs/`
+
+## App Data Directory
+
+Handy stores its configuration, models, and recordings in the app data directory:
+
+- **macOS**: `~/Library/Application Support/com.pais.handy/`
+- **Windows**: `%APPDATA%/com.pais.handy/`
+- **Linux**: `~/.local/share/com.pais.handy/`
+
+You can open this directory from the **About** page in settings. Models are in the `models/` subdirectory, recordings in `recordings/`.
