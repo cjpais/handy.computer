@@ -2,54 +2,315 @@
 interface DocEntry {
     id: string;
     title: string;
+    alpha?: boolean;
+}
+
+interface Heading {
+    depth: number;
+    slug: string;
+    text: string;
 }
 
 interface Props {
     docs: DocEntry[];
     currentId: string;
+    currentTitle: string;
+    headings: Heading[];
 }
 
-const { docs, currentId } = Astro.props;
+const { docs, currentId, currentTitle, headings } = Astro.props;
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
-<details class="docs-mobile-nav lg:hidden relative">
-    <summary class="flex items-center cursor-pointer" aria-label="Navigate docs">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="text-handy-text/40">
-            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-        </svg>
-    </summary>
-    <nav class="absolute left-0 top-full mt-2 w-56 py-2 bg-background border border-handy-text/10 rounded-lg shadow-lg z-50" aria-label="Documentation navigation">
-        <ul>
-            {docs.map((doc) => {
-                const isActive = doc.id === currentId;
-                return (
-                    <li>
-                        <a
-                            href={doc.id === "getting-started" ? "/docs" : `/docs/${doc.id}`}
-                            class={`block text-sm py-1.5 px-4 ${
-                                isActive
-                                    ? "text-handy-pink font-semibold"
-                                    : "!font-normal text-handy-text/60"
-                            }`}
-                            aria-current={isActive ? "page" : undefined}
-                        >
-                            {doc.title}
-                        </a>
-                    </li>
-                );
-            })}
-        </ul>
-    </nav>
-</details>
+<!-- Bottom pill trigger -->
+<button
+    id="docs-nav-trigger"
+    class="docs-nav-pill fixed left-1/2 -translate-x-1/2 z-40 sm:hidden flex items-center gap-2 px-4 py-2.5 bg-handy-pink rounded-full shadow-lg text-sm font-semibold cursor-pointer"
+    aria-label="Open documentation navigation"
+    aria-expanded="false"
+    aria-controls="docs-bottom-sheet"
+>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--handy-dark-pink)" stroke-width="1.5" stroke-linecap="round">
+        <path d="M2 4h12M2 8h12M2 12h12" />
+    </svg>
+    <span class="max-w-[180px] truncate text-handy-dark-pink">{currentTitle}</span>
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="var(--handy-dark-pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2.5 6.5L5 4L7.5 6.5" />
+    </svg>
+</button>
+
+<!-- Bottom sheet overlay -->
+<div id="docs-bottom-sheet" class="docs-sheet-overlay fixed inset-0 z-50 sm:hidden" aria-hidden="true">
+    <!-- Backdrop -->
+    <div class="docs-sheet-backdrop absolute inset-0"></div>
+
+    <!-- Sheet -->
+    <div class="docs-sheet absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[70vh] flex flex-col">
+        <!-- Handle area (swipe target) -->
+        <div class="docs-sheet-handle flex items-center justify-center pt-3 pb-1 relative shrink-0 cursor-grab active:cursor-grabbing" role="presentation">
+            <div class="w-10 h-1 rounded-full bg-handy-text/20"></div>
+            <button
+                class="docs-sheet-close absolute right-4 top-2.5 p-1 text-handy-text/40 hover:text-handy-text cursor-pointer"
+                aria-label="Close navigation"
+            >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M5 5l10 10M15 5L5 15" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Scrollable content -->
+        <nav class="docs-sheet-nav overflow-y-auto overscroll-contain px-5 pb-safe" aria-label="Documentation navigation">
+            <h3 class="docs-sheet-heading">Pages</h3>
+            <ul class="docs-sheet-list">
+                {docs.map((doc) => {
+                    const isActive = doc.id === currentId;
+                    return (
+                        <li>
+                            <a
+                                href={doc.id === "getting-started" ? "/docs" : `/docs/${doc.id}`}
+                                class:list={[
+                                    "docs-sheet-link block py-2 px-3 rounded-lg text-sm transition-colors",
+                                    isActive
+                                        ? "bg-handy-pink/20 text-handy-pink font-semibold"
+                                        : "!font-normal text-handy-text/70",
+                                ]}
+                                aria-current={isActive ? "page" : undefined}
+                            >
+                                {doc.title}
+                            </a>
+                        </li>
+                    );
+                })}
+            </ul>
+
+            {tocHeadings.length > 0 && (
+                <>
+                    <h3 class="docs-sheet-heading mt-4">On this page</h3>
+                    <ul class="docs-sheet-list">
+                        {tocHeadings.map((heading) => (
+                            <li>
+                                <a
+                                    href={`#${heading.slug}`}
+                                    class:list={[
+                                        "docs-sheet-toc-link docs-sheet-link block py-1.5 rounded-lg text-sm !font-normal text-handy-text/60 transition-colors",
+                                        heading.depth === 3 ? "px-6" : "px-3",
+                                    ]}
+                                >
+                                    {heading.text.replace(/#$/, "").trim()}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )}
+            <div class="h-2"></div>
+        </nav>
+    </div>
+</div>
 
 <style>
-    .docs-mobile-nav ul {
+    /* Pill positioning with safe area */
+    .docs-nav-pill {
+        bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Sheet list reset */
+    .docs-sheet-list {
         list-style: none;
         padding-left: 0;
         margin: 0;
     }
-    .docs-mobile-nav summary::marker,
-    .docs-mobile-nav summary::-webkit-details-marker {
-        display: none;
+
+    /* Section headings */
+    .docs-sheet-heading {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: color-mix(in srgb, var(--handy-text) 40%, transparent);
+        margin-bottom: 0.375rem;
+        margin-top: 0.5rem;
+        padding-left: 0.75rem;
+    }
+
+    /* Link hover - only on devices that support hover (not touch) */
+    @media (hover: hover) {
+        .docs-sheet-link:hover {
+            background: color-mix(in srgb, var(--handy-text) 5%, transparent);
+        }
+    }
+
+    /* Tap/press feedback for all devices */
+    .docs-sheet-link:active {
+        background: color-mix(in srgb, var(--handy-pink) 20%, transparent);
+        transition-duration: 0s;
+    }
+
+    /* Overlay hidden by default */
+    .docs-sheet-overlay {
+        pointer-events: none;
+        visibility: hidden;
+    }
+
+    /* Backdrop transition */
+    .docs-sheet-backdrop {
+        background: rgba(56, 39, 49, 0);
+        transition: background 0.3s ease;
+    }
+
+    /* Sheet slide transition */
+    .docs-sheet {
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* Open state */
+    .docs-sheet-overlay.open {
+        pointer-events: auto;
+        visibility: visible;
+    }
+
+    .docs-sheet-overlay.open .docs-sheet-backdrop {
+        background: rgba(56, 39, 49, 0.25);
+    }
+
+    .docs-sheet-overlay.open .docs-sheet {
+        transform: translateY(0);
+    }
+
+    /* When actively dragging, disable the CSS transition */
+    .docs-sheet.dragging {
+        transition: none !important;
+    }
+
+    /* Safe bottom padding utility */
+    .pb-safe {
+        padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
     }
 </style>
+
+<script>
+    function initBottomSheet() {
+        const trigger = document.getElementById("docs-nav-trigger");
+        const overlay = document.getElementById("docs-bottom-sheet");
+        if (!trigger || !overlay) return;
+
+        const backdrop = overlay.querySelector<HTMLElement>(".docs-sheet-backdrop");
+        const closeBtn = overlay.querySelector<HTMLElement>(".docs-sheet-close");
+        const sheet = overlay.querySelector<HTMLElement>(".docs-sheet");
+        const handle = overlay.querySelector<HTMLElement>(".docs-sheet-handle");
+        const scrollableNav = overlay.querySelector<HTMLElement>(".docs-sheet-nav");
+        const tocLinks = overlay.querySelectorAll<HTMLAnchorElement>(".docs-sheet-toc-link");
+
+        let startY = 0;
+        let currentDelta = 0;
+        let isDragging = false;
+        let dragSource: "handle" | "content" | null = null;
+
+        function open() {
+            overlay!.classList.add("open");
+            overlay!.setAttribute("aria-hidden", "false");
+            trigger!.setAttribute("aria-expanded", "true");
+            document.body.style.overflow = "hidden";
+            if (sheet) sheet.style.transform = "";
+        }
+
+        function close() {
+            overlay!.classList.remove("open");
+            overlay!.setAttribute("aria-hidden", "true");
+            trigger!.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+            if (sheet) {
+                sheet.style.transform = "";
+                sheet.classList.remove("dragging");
+            }
+            if (backdrop) backdrop.style.background = "";
+        }
+
+        trigger.addEventListener("click", open);
+        backdrop?.addEventListener("click", close);
+        closeBtn?.addEventListener("click", close);
+
+        tocLinks.forEach((link) => {
+            link.addEventListener("click", () => close());
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && overlay!.classList.contains("open")) {
+                close();
+            }
+        });
+
+        // Swipe-to-dismiss from handle area (always works)
+        handle?.addEventListener("touchstart", (e) => {
+            startY = e.touches[0].clientY;
+            currentDelta = 0;
+            isDragging = true;
+            dragSource = "handle";
+            sheet?.classList.add("dragging");
+        }, { passive: true });
+
+        // Swipe-to-dismiss from content area (only when scrolled to top)
+        scrollableNav?.addEventListener("touchstart", (e) => {
+            startY = e.touches[0].clientY;
+            currentDelta = 0;
+            isDragging = false;
+            dragSource = "content";
+        }, { passive: true });
+
+        // Shared touchmove on the sheet
+        sheet?.addEventListener("touchmove", (e) => {
+            if (!dragSource) return;
+
+            const touchY = e.touches[0].clientY;
+            const delta = touchY - startY;
+
+            // For content-sourced drags, only start if scrolled to top and pulling down
+            if (dragSource === "content" && !isDragging) {
+                if (delta > 8 && scrollableNav && scrollableNav.scrollTop <= 0) {
+                    isDragging = true;
+                    sheet!.classList.add("dragging");
+                    startY = touchY; // Reset so the sheet doesn't jump
+                } else {
+                    return;
+                }
+            }
+
+            if (!isDragging) return;
+
+            currentDelta = Math.max(0, touchY - startY);
+
+            if (currentDelta > 0) {
+                e.preventDefault();
+                sheet!.style.transform = `translateY(${currentDelta}px)`;
+                // Fade backdrop proportionally
+                const opacity = Math.max(0, 0.25 * (1 - currentDelta / 300));
+                if (backdrop) backdrop.style.background = `rgba(56, 39, 49, ${opacity})`;
+            }
+        }, { passive: false });
+
+        sheet?.addEventListener("touchend", () => {
+            if (!isDragging) {
+                dragSource = null;
+                return;
+            }
+
+            isDragging = false;
+            dragSource = null;
+            sheet!.classList.remove("dragging");
+            if (backdrop) backdrop.style.background = "";
+
+            if (currentDelta > 80) {
+                close();
+            } else {
+                sheet!.style.transform = "";
+            }
+            currentDelta = 0;
+        });
+    }
+
+    initBottomSheet();
+    document.addEventListener("astro:page-load", initBottomSheet);
+</script>

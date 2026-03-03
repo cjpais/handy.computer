@@ -20,6 +20,7 @@
 }
 
 @theme {
+    --breakpoint-sm: 640px;
     --color-background: var(--handy-background);
     --color-handy-text: var(--handy-text);
     --color-handy-pink: var(--handy-pink);

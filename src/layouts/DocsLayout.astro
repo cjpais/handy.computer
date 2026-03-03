@@ -63,7 +63,7 @@ const currentPath = pathname.slice(1);
         <meta name="language" content="English" />
     </head>
     <body
-        class="flex flex-col max-w-[680px] mx-auto items-center px-4 min-h-dvh"
+        class="flex flex-col max-w-[940px] mx-auto items-center px-4 min-h-dvh"
     >
         <a
             href="#main-content"
@@ -76,10 +76,14 @@ const currentPath = pathname.slice(1);
         <main
             id="main-content"
             role="main"
-            class="w-full flex-grow relative mt-8 sm:mt-12"
+            class="w-full flex-grow mt-8 sm:mt-12"
         >
-            <slot name="sidebar" />
-            <slot />
+            <div class="sm:flex md:gap-8">
+                <slot name="sidebar" />
+                <div class="flex-1 min-w-0">
+                    <slot />
+                </div>
+            </div>
         </main>
         <div class="w-full -mt-2">
             <Footer />

@@ -28,15 +28,17 @@ const { Content, headings } = await render(doc);
 
 <DocsLayout title={doc.data.title} description={doc.data.description}>
     <DocsSidebar slot="sidebar" docs={sidebarDocs} currentId={doc.id} headings={headings} />
-    <article class="doc-content">
-        <div class="flex items-center gap-3 mb-6">
-            <DocsMobileNav docs={sidebarDocs} currentId={doc.id} />
-            <h1 class="!mb-0">{doc.data.title}</h1>
-            {doc.data.alpha && <AlphaBadge />}
+    <article class="doc-content pb-10 sm:pb-0">
+        <div class="mb-6">
+            <div class="flex items-center gap-3">
+                <h1 class="!mb-0">{doc.data.title}</h1>
+                {doc.data.alpha && <AlphaBadge />}
+            </div>
         </div>
         <Content />
         <DocNav prev={prev} next={next} />
     </article>
+    <DocsMobileNav docs={sidebarDocs} currentId={doc.id} currentTitle={doc.data.title} headings={headings} />
 </DocsLayout>
 
 <style>
@@ -55,6 +57,9 @@ const { Content, headings } = await render(doc);
         border-collapse: collapse;
         margin: 1rem 0;
         font-size: 0.9rem;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     .doc-content :global(th),
     .doc-content :global(td) {
