@@ -1,6 +1,6 @@
 # Handy Website
 
-This is the official website for **Handy**, a free and open source cross-platform speech-to-text application for your computer.
+This is the official repository for **Handy's Website**, a free and open source cross-platform speech-to-text application for your computer.
 
 ## About Handy
 
