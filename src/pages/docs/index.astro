@@ -16,7 +16,7 @@ const next = sorted.length > 1 ? { slug: sorted[1].id, title: sorted[1].data.tit
 
 <DocsLayout title={doc.data.title} description={doc.data.description}>
     <DocsSidebar slot="sidebar" docs={sidebarDocs} currentId={doc.id} headings={headings} />
-    <article class="doc-content pb-10 sm:pb-0">
+    <article class="doc-content">
         <div class="mb-6">
             <div class="flex items-center gap-3">
                 <h1 class="!mb-0">{doc.data.title}</h1>
@@ -25,7 +25,7 @@ const next = sorted.length > 1 ? { slug: sorted[1].id, title: sorted[1].data.tit
         <Content />
         <DocNav next={next} />
     </article>
-    <DocsMobileNav docs={sidebarDocs} currentId={doc.id} currentTitle={doc.data.title} headings={headings} />
+    <DocsMobileNav slot="mobile-nav" docs={sidebarDocs} currentId={doc.id} currentTitle={doc.data.title} headings={headings} />
 </DocsLayout>
 
 <style>
