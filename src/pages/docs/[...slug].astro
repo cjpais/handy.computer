@@ -28,7 +28,7 @@ const { Content, headings } = await render(doc);
 
 <DocsLayout title={doc.data.title} description={doc.data.description}>
     <DocsSidebar slot="sidebar" docs={sidebarDocs} currentId={doc.id} headings={headings} />
-    <article class="doc-content">
+    <article class:list={["doc-content", { "faq-content": doc.id === "faq" }]}>
         <div class="mb-6">
             <div class="flex items-center gap-3">
                 <h1 class="!mb-0">{doc.data.title}</h1>
@@ -87,5 +87,17 @@ const { Content, headings } = await render(doc);
     .doc-content :global(pre code) {
         background: none;
         padding: 0;
+    }
+
+    /* FAQ: tighten Q→A gap, add extra space after A */
+    .faq-content :global(p > strong:only-child) {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+    .faq-content :global(p:has(> strong:only-child)) {
+        margin-bottom: 0.1rem;
+    }
+    .faq-content :global(p:has(> strong:only-child) + p) {
+        margin-bottom: 1.5rem;
     }
 </style>
