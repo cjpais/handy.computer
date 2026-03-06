@@ -1,5 +1,5 @@
 ---
-import Footer from "../components/Footer.astro";
+import FooterContent from "../components/FooterContent.astro";
 import Header from "../components/Header.tsx";
 import "../styles/global.css";
 
@@ -92,9 +92,14 @@ const currentPath = pathname.slice(1);
                     </div>
                 </div>
             </main>
-            <div class="w-full -mt-2">
-                <Footer />
-            </div>
+            <footer
+                class="w-full pt-4 sm:mt-8 sm:pt-0 border-t sm:border-none border-handy-text/20 pb-2 sm:flex md:gap-8"
+            >
+                <div class="hidden sm:block w-48 shrink-0"></div>
+                <div class="flex-1 flex items-center justify-center text-sm">
+                    <FooterContent />
+                </div>
+            </footer>
         </div>
     </body>
 </html>
