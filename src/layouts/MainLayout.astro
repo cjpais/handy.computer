@@ -31,7 +31,7 @@ const {
     canonicalUrl,
 } = Astro.props;
 
-const fullTitle = title === "Handy" ? title : `${title} | Handy`;
+const fullTitle = title === "Handy" ? title : `${title}`;
 const siteUrl = Astro.site || new URL(Astro.request.url).origin;
 const currentUrl = canonicalUrl || new URL(Astro.request.url).href;
 const fullOgImage = new URL(ogImage, siteUrl).href;
