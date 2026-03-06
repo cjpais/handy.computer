@@ -22,14 +22,14 @@ export default function LanguageList({ title, languages }: Props) {
 
   return (
     <div className="not-prose my-4 rounded-xl border border-handy-text/8 bg-handy-text/[0.02] p-4 sm:p-5">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
         <span className="text-sm font-semibold text-handy-text">{title}</span>
         <input
           type="text"
           placeholder={`Search ${languages.length} languages...`}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="max-w-[180px] text-xs px-2.5 py-1.5 rounded-md border border-handy-text/15 bg-handy-text/[0.03] text-handy-text placeholder:text-handy-text/35 outline-none focus:border-handy-pink/50"
+          className="sm:max-w-[180px] text-[16px] sm:text-xs scale-[0.875] sm:scale-100 origin-left sm:origin-center px-2.5 py-1.5 rounded-md border border-handy-text/15 bg-handy-text/[0.03] text-handy-text placeholder:text-handy-text/35 outline-none focus:border-handy-pink/50"
         />
       </div>
       <div className="flex flex-wrap gap-1.5 items-center">
