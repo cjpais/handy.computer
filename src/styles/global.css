@@ -20,6 +20,7 @@
 }
 
 @theme {
+    --breakpoint-sm: 640px;
     --color-background: var(--handy-background);
     --color-handy-text: var(--handy-text);
     --color-handy-pink: var(--handy-pink);
@@ -168,6 +169,10 @@ pre {
     max-width: 100%;
 }
 
+pre.astro-code {
+    @apply !bg-handy-text/[0.02] border border-handy-text/8 !rounded-xl;
+}
+
 pre code {
     background: none;
     padding: 0;
@@ -213,4 +218,22 @@ li > ol {
 
 img {
     @apply rounded-2xl;
+}
+
+/* Heading anchor links (rehype-autolink-headings) */
+.heading-anchor {
+    margin-left: 0.4em;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.heading-anchor-icon {
+    color: var(--handy-pink);
+    font-weight: 600;
+}
+
+h2:hover .heading-anchor,
+h3:hover .heading-anchor {
+    opacity: 1;
 }

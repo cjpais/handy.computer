@@ -1,0 +1,117 @@
+---
+import FooterContent from "../components/FooterContent.astro";
+import Header from "../components/Header.tsx";
+import "../styles/global.css";
+
+export interface Props {
+    title?: string;
+    description?: string;
+    ogImage?: string;
+    ogType?: string;
+    twitterCard?: string;
+    author?: string;
+    canonicalUrl?: string;
+}
+
+const {
+    title = "Handy Docs",
+    description = "Documentation for Handy — the open-source speech-to-text app",
+    ogImage = "/og-banner.png",
+    ogType = "website",
+    twitterCard = "summary_large_image",
+    author = "CJ Pais & Contributors",
+    canonicalUrl,
+} = Astro.props;
+
+const fullTitle = title === "Handy" ? title : `${title} | Handy`;
+const siteUrl = Astro.site || new URL(Astro.request.url).origin;
+const currentUrl = canonicalUrl || new URL(Astro.request.url).href;
+const fullOgImage = new URL(ogImage, siteUrl).href;
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="author" content={author} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+        <link rel="canonical" href={currentUrl} />
+        <meta name="generator" content={Astro.generator} />
+
+        <title>{fullTitle}</title>
+        <meta name="title" content={fullTitle} />
+        <meta name="description" content={description} />
+
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={fullOgImage} />
+        <meta property="og:site_name" content="Handy" />
+
+        <meta property="twitter:card" content={twitterCard} />
+        <meta property="twitter:url" content={currentUrl} />
+        <meta property="twitter:title" content={fullTitle} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={fullOgImage} />
+
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+    </head>
+    <body class="flex flex-col min-h-dvh">
+        <a
+            href="#main-content"
+            class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-handy-pink px-4 py-2 rounded"
+        >
+            Skip to main content
+        </a>
+
+        <!-- Sticky header area - full viewport width -->
+        <div class="docs-header-area w-full bg-background">
+            <div class="max-w-[940px] mx-auto px-4">
+                <Header currentPath={currentPath} client:load />
+                <slot name="mobile-nav" />
+            </div>
+        </div>
+
+        <!-- Content area - constrained -->
+        <div class="max-w-[940px] mx-auto px-4 w-full flex-grow flex flex-col">
+            <main
+                id="main-content"
+                role="main"
+                class="w-full flex-grow mt-4 sm:mt-12"
+            >
+                <div class="sm:flex md:gap-8">
+                    <slot name="sidebar" />
+                    <div class="flex-1 min-w-0">
+                        <slot />
+                    </div>
+                </div>
+            </main>
+            <footer
+                class="w-full pb-2 sm:flex md:gap-8"
+            >
+                <div class="hidden sm:block w-48 shrink-0"></div>
+                <div class="flex-1 flex items-center justify-center text-sm pt-4 border-t border-handy-text/20">
+                    <FooterContent />
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
+
+<style>
+    @media (max-width: 639px) {
+        .docs-header-area {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            border-bottom: 1px solid
+                color-mix(in srgb, var(--handy-text) 10%, transparent);
+        }
+    }
+</style>

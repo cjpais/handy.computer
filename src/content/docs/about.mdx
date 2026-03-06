@@ -1,0 +1,45 @@
+---
+title: "About"
+description: "App language, version info, data directories, and how to support Handy's development."
+order: 12
+---
+
+import DocImage from '../../components/DocImage.astro';
+import DonateButton from '../../components/DonateButton';
+
+The About tab shows app info and useful links. Access it from the sidebar in Handy's settings window.
+
+<DocImage src="/docs/handy-about.png" alt="Handy About Settings" />
+
+## App Language
+
+Change the language of Handy's user interface. This is separate from the transcription language, which is configured in [Models](/docs/models).
+
+## Version
+
+Shows the current version of Handy installed on your machine.
+
+## Directories
+
+- **App Data Directory** - Where Handy stores configuration, models, and recordings
+- **Log Directory** - Where Handy writes log files
+
+You can click these to open them in your file manager. See [Debug > Finding Logs](/docs/debug#finding-logs) for the default paths on each platform.
+
+## Support Development
+
+Handy is free, open-source software built by the community and is currently maintained by a single developer ([CJ](https://cjpais.com)). If Handy is useful to you, please consider supporting its development. Every contribution makes a real difference and helps keep Handy free for everyone.
+
+<div class="pb-4">
+<DonateButton variant="docs" client:load />
+</div>
+
+You can also support through [GitHub Sponsors](https://github.com/sponsors/cjpais), or reach out at [contact@handy.computer](mailto:contact@handy.computer) about sponsorship. Reoccuring substantial sponsors get their logo and link on the website and GitHub README.
+
+## Source Code
+
+Handy is fully open source. You can browse the code, report issues, or contribute on [GitHub](https://github.com/cjpais/handy).
+
+## Acknowledgments
+
+Handy is built on top of amazing open-source projects, including [Whisper](https://github.com/openai/whisper) and other speech recognition models that make local transcription possible.

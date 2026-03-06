@@ -14,6 +14,8 @@
     "@astrojs/tailwind": "^6.0.2",
     "@tailwindcss/vite": "^4.1.8",
     "astro": "^5.8.1",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {

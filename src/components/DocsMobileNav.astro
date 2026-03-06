@@ -1,0 +1,264 @@
+---
+interface DocEntry {
+    id: string;
+    title: string;
+    alpha?: boolean;
+}
+
+interface Heading {
+    depth: number;
+    slug: string;
+    text: string;
+}
+
+interface NavLink {
+    slug: string;
+    title: string;
+}
+
+interface Props {
+    docs: DocEntry[];
+    currentId: string;
+    currentTitle: string;
+    headings: Heading[];
+    prev?: NavLink;
+    next?: NavLink;
+}
+
+const { docs, currentId, currentTitle, headings } = Astro.props;
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+<!-- Secondary bar below header (mobile only) -->
+<div
+    class="docs-mobile-bar sm:hidden flex items-center pt-5 py-3"
+>
+    <button
+        id="docs-drawer-trigger"
+        class="docs-drawer-toggle flex items-center gap-1.5 cursor-pointer bg-transparent border-none min-w-0"
+        aria-label="Toggle documentation navigation"
+        aria-expanded="false"
+        aria-controls="docs-drawer-panel"
+    >
+        <svg
+            class="docs-drawer-chevron shrink-0"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="var(--handy-text)"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M6 4L10 8L6 12"></path>
+        </svg>
+        <span class="truncate text-sm font-semibold text-handy-text"
+            >{currentTitle}</span
+        >
+    </button>
+</div>
+
+<!-- Full-width dropdown panel (mobile only) -->
+<div
+    id="docs-drawer-panel"
+    class="docs-drawer-panel fixed left-0 right-0 bottom-0 z-40 sm:hidden"
+    aria-hidden="true"
+>
+    <nav
+        class="docs-drawer-nav h-full overflow-y-auto overscroll-contain bg-background px-5 py-4"
+        aria-label="Documentation navigation"
+    >
+        <h3 class="docs-drawer-heading">Pages</h3>
+        <ul class="docs-drawer-list">
+            {
+                docs.map((doc) => {
+                    const isActive = doc.id === currentId;
+                    return (
+                        <li>
+                            <a
+                                href={
+                                    doc.id === "getting-started"
+                                        ? "/docs"
+                                        : `/docs/${doc.id}`
+                                }
+                                class:list={[
+                                    "docs-drawer-link block py-2 px-3 rounded-lg text-sm transition-colors",
+                                    isActive
+                                        ? "bg-handy-pink/20 text-handy-pink font-semibold"
+                                        : "!font-normal text-handy-text/70",
+                                ]}
+                                aria-current={isActive ? "page" : undefined}
+                            >
+                                {doc.title}
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+
+        {
+            tocHeadings.length > 0 && (
+                <>
+                    <h3 class="docs-drawer-heading mt-4">On this page</h3>
+                    <ul class="docs-drawer-list">
+                        {tocHeadings.map((heading) => (
+                            <li>
+                                <a
+                                    href={`#${heading.slug}`}
+                                    class:list={[
+                                        "docs-drawer-toc-link docs-drawer-link block py-1.5 rounded-lg text-sm !font-normal text-handy-text/60 transition-colors",
+                                        heading.depth === 3 ? "px-6" : "px-3",
+                                    ]}
+                                >
+                                    {heading.text.replace(/#$/, "").trim()}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )
+        }
+    </nav>
+</div>
+
+<style>
+    /* Drawer list reset */
+    .docs-drawer-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    /* Section headings */
+    .docs-drawer-heading {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: color-mix(in srgb, var(--handy-text) 40%, transparent);
+        margin-bottom: 0.375rem;
+        margin-top: 0.5rem;
+        padding-left: 0.75rem;
+    }
+
+    /* Chevron rotation: > becomes v */
+    .docs-drawer-chevron {
+        transition: transform 0.2s ease;
+    }
+    .docs-drawer-toggle[aria-expanded="true"] .docs-drawer-chevron {
+        transform: rotate(90deg);
+    }
+
+    /* Link hover - only on hover-capable devices */
+    @media (hover: hover) {
+        .docs-drawer-link:hover {
+            background: color-mix(in srgb, var(--handy-text) 5%, transparent);
+            color: var(--handy-text);
+        }
+    }
+
+    /* Tap highlight on mobile - persistent until navigation */
+    .docs-drawer-link {
+        -webkit-tap-highlight-color: transparent;
+    }
+    .docs-drawer-link.tapped {
+        background: color-mix(in srgb, var(--handy-pink) 25%, transparent);
+        color: var(--handy-pink);
+    }
+
+    /* Toggle button hover/tap */
+    @media (hover: hover) {
+        .docs-drawer-toggle:hover {
+            opacity: 0.7;
+        }
+    }
+    .docs-drawer-toggle:active {
+        opacity: 0.5;
+    }
+
+    /* Panel hidden by default */
+    .docs-drawer-panel {
+        pointer-events: none;
+        visibility: hidden;
+        opacity: 0;
+        transition:
+            opacity 0.2s ease,
+            visibility 0.2s ease;
+    }
+
+    /* Open state */
+    .docs-drawer-panel.open {
+        pointer-events: auto;
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
+<script>
+    function initDrawer() {
+        const trigger = document.getElementById("docs-drawer-trigger");
+        const panel = document.getElementById("docs-drawer-panel");
+        if (!trigger || !panel) return;
+
+        const tocLinks = panel.querySelectorAll<HTMLAnchorElement>(
+            ".docs-drawer-toc-link",
+        );
+
+        function positionPanel() {
+            const headerArea = document.querySelector(".docs-header-area");
+            if (headerArea) {
+                const h = headerArea.getBoundingClientRect().height;
+                panel!.style.top = h + "px";
+            }
+        }
+
+        function open() {
+            positionPanel();
+            panel!.classList.add("open");
+            panel!.setAttribute("aria-hidden", "false");
+            trigger!.setAttribute("aria-expanded", "true");
+            document.body.style.overflow = "hidden";
+        }
+
+        function close() {
+            panel!.classList.remove("open");
+            panel!.setAttribute("aria-hidden", "true");
+            trigger!.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+        }
+
+        function toggle() {
+            if (panel!.classList.contains("open")) {
+                close();
+            } else {
+                open();
+            }
+        }
+
+        trigger.addEventListener("click", toggle);
+
+        // Persistent tap highlight - touchstart fires instantly on contact
+        const allLinks = panel.querySelectorAll<HTMLAnchorElement>(".docs-drawer-link");
+        allLinks.forEach((link) => {
+            link.addEventListener("touchstart", () => {
+                allLinks.forEach((l) => l.classList.remove("tapped"));
+                link.classList.add("tapped");
+            }, { passive: true });
+        });
+
+        tocLinks.forEach((link) => {
+            link.addEventListener("click", () => close());
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && panel!.classList.contains("open")) {
+                close();
+            }
+        });
+    }
+
+    initDrawer();
+    document.addEventListener("astro:page-load", initDrawer);
+</script>
