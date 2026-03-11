@@ -18,15 +18,14 @@ handy [OPTIONS]
 
 | Flag | Description |
 |------|-------------|
-| `--model <MODEL>` | Set the speech-to-text model to use |
-| `--language <LANG>` | Set the language code (e.g., `en`, `es`, `de`) |
-| `--push-to-talk` | Enable push-to-talk mode |
-| `--no-overlay` | Disable the recording overlay |
-| `--debug` | Enable debug logging |
+| `--start-hidden` | Start with the main window hidden |
+| `--no-tray` | Disable the system tray icon |
 | `--toggle-transcription` | Toggle transcription on/off in a running instance |
-| `--toggle-transcription-post-process` | Toggle transcription with post-processing on/off |
+| `--toggle-post-process` | Toggle transcription with post-processing on/off |
+| `--cancel` | Cancel the current operation in a running instance |
+| `--debug` | Enable debug mode with verbose logging |
 
-The `--toggle-transcription` and `--toggle-transcription-post-process` flags communicate with an already-running Handy instance. If Handy is recording, it stops and transcribes. If idle, it starts recording. This is useful for binding to window manager shortcuts.
+The `--toggle-transcription` and `--toggle-post-process` flags communicate with an already-running Handy instance. If Handy is recording, it stops and transcribes. If idle, it starts recording. This is useful for binding to window manager shortcuts.
 
 ## Signal Control
 
