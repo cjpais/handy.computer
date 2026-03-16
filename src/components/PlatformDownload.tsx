@@ -144,6 +144,8 @@ function Instructions({ platform }: { platform: PlatformTab }) {
           <code className={codeStyle}>.msi</code> installer and follow the
           prompts. Handy will be available from the Start menu.
         </p>
+        <p className="m-0 mb-1">Or install via winget (community-maintained package):</p>
+        <CopyableCode code="winget install cjpais.Handy" />
       </div>
     );
   }
