@@ -64,6 +64,21 @@ GigaAM v3 is a Russian speech recognition model. It supports punctuation, Latin 
 |-------|------|-------|----------|-----------|
 | GigaAM v3 | ~225 MB | Fast | High | Russian |
 
+## Canary
+
+[NVIDIA's Canary](https://huggingface.co/nvidia/canary-1b) models support transcription and translation across European languages. They output proper punctuation, capitalization, and inverse text normalization (e.g. "one hundred twenty three" → "123"). The 1B v2 model supports ITN; the Flash model does not.
+
+Canary does not support automatic language detection. When language is set to "auto", it defaults to English. This means if you speak another language with "auto" selected, Canary will translate your speech into English rather than transcribing it in the original language. You should manually select your language for best results.
+
+| Model | Size | Speed | Accuracy | Translation | Languages |
+|-------|------|-------|----------|-------------|-----------|
+| [Canary 180M Flash](https://huggingface.co/nvidia/canary-180m-flash) | ~146 MB | Fast | Good | Yes | 4 languages |
+| [Canary 1B v2](https://huggingface.co/nvidia/canary-1b-v2) | ~692 MB | Moderate | High | Yes | 25 languages |
+
+<LanguageList client:load title="Canary 180M Flash Supported Languages" languages={["English", "German", "Spanish", "French"]} />
+
+<LanguageList client:load title="Canary 1B v2 Supported Languages" languages={["English", "Spanish", "French", "German", "Portuguese", "Russian", "Italian", "Polish", "Dutch", "Romanian", "Ukrainian", "Czech", "Greek", "Swedish", "Hungarian", "Bulgarian", "Danish", "Finnish", "Slovak", "Croatian", "Lithuanian", "Slovenian", "Latvian", "Estonian", "Maltese"]} />
+
 ## SenseVoice
 
 SenseVoice is a fast model from FunAudioLLM supporting a small set of East Asian languages plus English.
@@ -82,6 +97,7 @@ Open Handy's settings and select a model from the dropdown. New models will be d
 
 - **Fastest transcription**: Moonshine or SenseVoice for English/supported languages
 - **Best all-rounder**: Parakeet V3 for European languages
+- **Best for translation**: Canary 1B v2 for European language translation
 - **Best for Russian**: GigaAM v3
 - **Best multilingual**: Whisper Small or Medium
 - **Best accuracy**: Whisper Large
@@ -96,4 +112,4 @@ As an experimental feature, you can load custom Whisper-compatible models. Place
 - **macOS**: Metal
 - **Windows/Linux**: Vulkan
 
-**All other models** (Parakeet, Moonshine, SenseVoice, GigaAM) currently run on CPU only. GPU acceleration support is coming soon.
+**All other models** (Parakeet, Canary, Moonshine, SenseVoice, GigaAM) currently run on CPU only. GPU acceleration support is coming soon.
