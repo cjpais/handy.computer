@@ -30,6 +30,15 @@ Not yet. Handy records a segment, then transcribes it. Real-time streaming trans
 
 See [Debug > App Data Directory](/docs/debug#app-data-directory) for the full list of paths. You can also find it on the About page in settings.
 
+**Q: How do I verify release signatures?**
+
+Handy release artifacts use Tauri's updater signature format.
+
+To verify a downloaded artifact manually, decode the `pubkey` from [`src-tauri/tauri.conf.json`](https://github.com/cjpais/Handy/blob/main/src-tauri/tauri.conf.json) and decode the downloaded `.sig` file from base64, then verify the artifact with `minisign`.
+
+For the full step-by-step instructions, see the main repository:
+https://github.com/cjpais/Handy#verify-release-signatures
+
 **Q: Can Handy start automatically when I log in?**
 
 Yes. Enable **Launch on Startup** in **Settings > Advanced**. You can also enable **Start Hidden** to launch directly to the system tray. See [Advanced](/docs/advanced#launch-on-startup).
