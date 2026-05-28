@@ -23,6 +23,7 @@ Enable debug mode to see detailed logs. See the [Debug](/docs/debug) page for ho
 - Try switching the paste method in **Settings > Advanced** (see [Paste Methods](/docs/paste-methods))
 - On macOS, ensure Handy has Accessibility permissions (**System Settings > Privacy & Security > Accessibility**)
 - On Linux, check your typing tool configuration (see [Paste Methods > Typing Tools](/docs/paste-methods#typing-tools-linux))
+- On Windows, try running Handy as administrator along with switching **Keyboard Implementation** to **Tauri Global Shortcut** in [Advanced > Experimental](/docs/advanced#experimental-features)
 - Try increasing the paste delay in [Debug](/docs/debug#paste-delay) settings
 
 ### Wrong text is being pasted
@@ -115,7 +116,8 @@ If a model download fails partway through and you cannot re-download it:
 - Run the installer as administrator if you encounter permission issues
 - Vulkan drivers are required for GPU acceleration
 - Make sure your audio drivers are up to date
-- If Handy cannot paste into apps running as administrator, run Handy as administrator too
+- If Handy cannot paste into apps running as administrator, run Handy as administrator too. 
+- Try switching **Keyboard Implementation** to **Tauri Global Shortcut** in [Advanced > Experimental](/docs/advanced#experimental-features) if you continue to encounter pasting issues.
 - For pasting into terminals (CMD, PowerShell), use the Shift+Insert paste method
 - Install via winget: `winget install cjpais.Handy`
 
