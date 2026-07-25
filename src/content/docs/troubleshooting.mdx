@@ -19,9 +19,10 @@ Enable debug mode to see detailed logs. See the [Debug](/docs/debug) page for ho
 
 ### Shortcuts stopped working on macOS (Secure Input)
 
-If shortcuts that include a regular key (like Option+Space) suddenly stop triggering Handy — while modifier-only shortcuts (like just `fn`) still work — another process is likely holding **macOS Secure Input**. This is the system mechanism that protects password fields: while it is active, macOS stops delivering key events to apps like Handy. Recent versions of Handy detect this, show a warning banner in settings (naming the process when possible), and automatically switch affected shortcuts to a fallback so they keep working.
+macOS has a system mechanism called **Secure Input** which protects things like password fields. While it's active macOS stops delivering some key events
+to Handy. If your shortcuts include a regular key (like Option+Space) suddenly stop triggering, while modifier-only shortcuts (like just `fn`) still work, it's probably due to Secure Input. Recent versions of Handy detect this, show a warning banner in settings (naming the process when possible), and automatically switch affected shortcuts to a fallback so they keep working.
 
-Common causes and fixes, in order:
+Common causes and fixes:
 
 1. **Terminal or iTerm2** — disable "Secure Keyboard Entry" in the Terminal (or iTerm2) application menu
 2. **Password managers** — quit or update them; some 1Password and KeePassXC releases are known to hold Secure Input while in the background
