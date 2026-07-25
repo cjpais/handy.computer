@@ -17,6 +17,31 @@ Enable debug mode to see detailed logs. See the [Debug](/docs/debug) page for ho
 - Try switching to a different microphone in **Settings > General**
 - Enable debug mode and check the logs for errors
 
+### Shortcuts stopped working on macOS (Secure Input)
+
+If shortcuts that include a regular key (like Option+Space) suddenly stop triggering Handy — while modifier-only shortcuts (like just `fn`) still work — another process is likely holding **macOS Secure Input**. This is the system mechanism that protects password fields: while it is active, macOS stops delivering key events to apps like Handy. Recent versions of Handy detect this, show a warning banner in settings (naming the process when possible), and automatically switch affected shortcuts to a fallback so they keep working.
+
+Common causes and fixes, in order:
+
+1. **Terminal or iTerm2** — disable "Secure Keyboard Entry" in the Terminal (or iTerm2) application menu
+2. **Password managers** — quit or update them; some 1Password and KeePassXC releases are known to hold Secure Input while in the background
+3. **A stuck `loginwindow` or an app that quit while holding it** — press <kbd>Ctrl</kbd>+<kbd>Cmd</kbd>+<kbd>Q</kbd> to lock the screen, then log back in **by typing your password** (not Touch ID). If that fails, log out and back in fully
+
+To see which process is holding Secure Input yourself, run:
+
+```bash
+ioreg -l -w 0 | grep -o 'kCGSSessionSecureInputPID"=[0-9]*' | grep -o '[0-9]*' | head -1 | xargs ps -o pid,comm -p
+```
+
+Note that macOS reports this on a best-effort basis — the named process may not be the real culprit, and it can come up empty if the holder already quit. Handy's debug window (<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>) also has a **Keyboard Diagnostic** that checks whether key events are reaching Handy at all.
+
+Handy only shows the warning banner when one of your shortcuts is actually affected. A few limitations while Secure Input is active:
+
+- Shortcuts using the `fn` key with a regular key (e.g. `fn`+`End`) cannot be covered by the fallback and will not work until Secure Input is resolved — Handy lists them in the warning banner
+- Shortcuts with a side-specific modifier (e.g. Right Option+Space) temporarily respond to **either** side while the fallback is active — the banner calls this out
+- Modifier-only shortcuts (just `fn`, just Left Ctrl, etc.) are unaffected and always keep working, so they make a good push-to-talk choice if you hit this often
+- Recording new shortcuts is disabled until Secure Input is resolved, since Handy cannot see the keys you press
+
 ### Text is not being pasted
 
 - Make sure your cursor is in a text field before starting transcription
