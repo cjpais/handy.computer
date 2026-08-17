@@ -117,7 +117,13 @@ Open the debug menu with `Cmd+Shift+D` (macOS) or `Ctrl+Shift+D` (Windows/Linux)
 
 **Q: Can I use modifier-only shortcuts (e.g., just Ctrl+Shift)?**
 
-Yes. You can set shortcuts to modifier-only combinations. On macOS, the Fn/Globe key is also supported as a modifier.
+Yes. You can set shortcuts to modifier-only combinations. On macOS, the Fn/Globe key is also supported as a modifier, with one caveat about external keyboards — see the next question.
+
+**Q: My shortcut works on my Mac's built-in keyboard but not on my external keyboard**
+
+If the shortcut includes `Fn` (or Globe), this is expected. `Fn` is not part of the standard USB HID keyboard specification, and macOS only receives it from Apple keyboards. Third-party keyboards handle `Fn` entirely in their own firmware to switch the top row between media and function keys, and never send it to the computer — so Handy has no event to react to, which is why the shortcut is silent rather than showing an error.
+
+An `Fn` shortcut remains a good choice if you only use Apple keyboards. To have one shortcut work everywhere, build it from standard modifiers (`Ctrl`, `Option`, `Shift`, `Command`) or a regular key. If your shortcut does not include `Fn`, see [Shortcuts stopped working on macOS (Secure Input)](/docs/troubleshooting#shortcuts-stopped-working-on-macos-secure-input) instead.
 
 **Q: The (x) button on the overlay discarded my recording!**
 

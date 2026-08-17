@@ -18,6 +18,8 @@ The default shortcut is `Option + Space` on macOS and `Ctrl + Space` on Windows/
 
 On macOS, many people like using the `Fn` key. On Windows and Linux, shortcuts require at least one modifier key (Ctrl, Alt, Shift) plus a regular key by default. You can enable the experimental Handy Keys implementation in [Advanced](/docs/advanced#keyboard-implementation) settings for more flexible bindings.
 
+If you do pick `Fn` (or Globe), one thing is worth knowing: it only reaches macOS from Apple keyboards — your Mac's built-in keyboard or an Apple external one. `Fn` is not part of the standard USB HID keyboard specification, so third-party keyboards handle it entirely in their own firmware and send nothing for Handy to detect. It stays an excellent shortcut if you use Apple keyboards; if you move between an Apple keyboard and a third-party one, build the shortcut from standard modifiers (`Ctrl`, `Option`, `Shift`, `Command`) or a regular key so it triggers on both.
+
 ## Push To Talk
 
 Hold the shortcut to record, release to stop. This is the default recording mode and is great for quick dictation. It avoids accidentally leaving the mic on.
