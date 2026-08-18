@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { unified } from '@astrojs/markdown-remark';
 
 const autolinkConfig = [
   rehypeAutolinkHeadings,
@@ -25,12 +26,17 @@ const autolinkConfig = [
 
 export default defineConfig({
   site: "https://handy.computer",
-  integrations: [react(), mdx({ rehypePlugins: [rehypeSlug, autolinkConfig] })],
+  integrations: [react(), mdx()],
+  experimental: {
+    incrementalBuild: true,
+  },
   markdown: {
+    processor: unified({
+      rehypePlugins: [rehypeSlug, autolinkConfig],
+    }),
     shikiConfig: {
       theme: "gruvbox-light-hard",
     },
-    rehypePlugins: [rehypeSlug, autolinkConfig],
   },
   output: "static",
   build: {

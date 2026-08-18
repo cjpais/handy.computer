@@ -1,9 +1,9 @@
 ---
 import { getCollection, render } from "astro:content";
-import DocsLayout from "../../layouts/DocsLayout.astro";
-import DocsSidebar from "../../components/DocsSidebar.astro";
-import DocsMobileNav from "../../components/DocsMobileNav.astro";
-import DocNav from "../../components/DocNav.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+import DocsSidebar from "@/components/DocsSidebar.astro";
+import DocsMobileNav from "@/components/DocsMobileNav.astro";
+import DocNav from "@/components/DocNav.astro";
 
 const docs = await getCollection("docs");
 const sorted = docs.sort((a, b) => a.data.order - b.data.order);

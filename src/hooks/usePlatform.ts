@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { platformStore, type PlatformTab } from "../lib/platformStore";
+import { platformStore, type PlatformTab } from "@/lib/platformStore";
 
 export function usePlatform(): PlatformTab {
   const [platform, setPlatform] = useState<PlatformTab>(platformStore.get());
