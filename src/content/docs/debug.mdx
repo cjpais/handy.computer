@@ -41,6 +41,19 @@ Toggle whether Handy automatically checks for new versions. Enabled by default.
 
 Choose a sound theme for the recording start and stop feedback. Different themes provide different audio cues. You can preview them by starting and stopping a recording.
 
+**Custom Sounds**
+
+You can also use custom audio files for start and stop feedback:
+
+1. Name your custom sound files `custom_start.wav` and `custom_stop.wav`.
+2. Place them directly in Handy's [app data directory](#app-data-directory):
+   - **macOS**: `~/Library/Application Support/com.pais.handy/`
+   - **Windows**: `%APPDATA%/com.pais.handy/`
+   - **Linux**: `~/.local/share/com.pais.handy/`
+3. Open the Debug menu (`Ctrl + Shift + D` or `Cmd + Shift + D`) and select **Custom** from the **Sound Theme** dropdown menu.
+
+*Note: If the "Custom" option does not appear in the dropdown menu, restart Handy after adding the sound files.*
+
 ### Word Correction Threshold
 
 Controls how aggressively custom word corrections are applied. This is a sensitivity slider from 0.0 to 1.0 (default: 0.18).
