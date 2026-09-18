@@ -113,12 +113,12 @@ import SponsorLogo from "../components/SponsorLogo.astro";
         <div class="w-full flex flex-col items-center gap-4">
             <div class="text-center flex flex-col">
                 <h1>Sponsors</h1>
-                <p class="text-handy-text/70 -mt-2 italic">
+                <p class="text-handy-text/70 -mt-2 !mb-0 italic">
                     Handy has some <b>amazing</b> sponsors who help keep it free and
                     open source
                 </p>
             </div>
-            <div class="flex flex-wrap justify-center sm:mt-8 mt-2 gap-4">
+            <div class="my-2 flex flex-wrap justify-center gap-5 sm:my-8 md:mb-4">
                 <SponsorLogo
                     name="Wordcab"
                     href="https://wordcab.com"
@@ -134,8 +134,13 @@ import SponsorLogo from "../components/SponsorLogo.astro";
                     href="https://boltai.com?utm_source=handy"
                     imageSrc="/sponsor-images/boltai.jpg"
                 />
+                <SponsorLogo
+                    name="Canty Digital"
+                    href="https://cantydigital.com.au/"
+                    imageSrc="/sponsor-images/cantydigital.png"
+                />
             </div>
-            <p class="text-handy-text/70 text-center italic">
+            <p class="text-handy-text/70 text-center !mb-0 italic">
                 Want to sponsor Handy? Feel free to <a
                     href="https://donate.stripe.com/6oU4gz8762g9790c8Vffy0j"
                     target="_blank">donate</a

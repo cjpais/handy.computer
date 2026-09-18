@@ -2,4 +2,27 @@
 import { HeartLogo } from "./logo/HeartLogo";
 ---
 
-<a href="https://cjpais.com" target="_blank" class="flex items-center gap-0 !font-normal !no-underline text-sm">made with <HeartLogo /></a>
+<div class="flex w-full flex-col items-center justify-center gap-3 text-sm">
+    <nav aria-label="Footer navigation" class="flex items-center gap-2">
+        <a href="/privacy" class="!font-normal !text-handy-text/70 hover:!text-handy-pink">privacy</a>
+        <span aria-hidden="true" class="text-handy-text/40">·</span>
+        <a
+            href="https://github.com/cjpais/Handy"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="!font-normal !text-handy-text/70 hover:!text-handy-pink"
+        >
+            github
+        </a>
+        <span aria-hidden="true" class="text-handy-text/40">·</span>
+        <a href="mailto:contact@handy.computer" class="!font-normal !text-handy-text/70 hover:!text-handy-pink">contact</a>
+    </nav>
+    <a
+        href="https://cjpais.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-0 !font-normal !text-handy-text/70 hover:!text-handy-pink !no-underline"
+    >
+        made with <HeartLogo />
+    </a>
+</div>
