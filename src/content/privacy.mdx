@@ -1,0 +1,136 @@
+# Privacy Policy
+
+**Effective date: September 18, 2026**
+
+Handy is an open-source, local-first speech-to-text application maintained by CJ Pais and contributors. This policy explains how the official Handy desktop application and the [handy.computer](https://handy.computer) website handle information.
+
+This policy applies to official Handy releases and services operated for the Handy project. Modified or redistributed versions of Handy may have different practices.
+
+## The short version
+
+- Handy does not require an account.
+- Speech recognition runs on your device.
+- During ordinary transcription, Handy does not send your microphone audio or transcription content to the Handy maintainers or to Handy servers.
+- Handy does not contain advertising, behavioral analytics, or user-tracking telemetry.
+- Network access is used for software updates, model downloads, and optional services that you choose to configure.
+- Recordings, transcripts, settings, and logs are stored locally on your device.
+
+## Local speech processing and storage
+
+Handy's speech-recognition models run on your device. When you use Handy, the application may process and store the following information locally:
+
+- microphone audio and audio recordings;
+- raw and post-processed transcriptions;
+- transcription history, timestamps, and saved status;
+- application settings, custom words, and custom prompts;
+- microphone, audio device, language, and model selections;
+- diagnostic logs; and
+- credentials for optional post-processing providers.
+
+By default, Handy retains a limited number of recent history entries and their audio recordings. Entries that you mark as saved may remain until you delete them. You can delete individual entries, change the retention period, or set the history limit to zero.
+
+Official release builds redact transcription content from diagnostic logs. Development or self-compiled debug builds may produce more detailed logs.
+
+Handy uses operating-system permissions for features such as microphone access, global keyboard shortcuts, accessibility-assisted pasting, and clipboard access. These permissions are used to provide the features you request.
+
+## Network connections
+
+Handy may make the following network connections.
+
+### Software updates
+
+When update checking is enabled, Handy contacts GitHub Releases to determine whether a new version is available and to download updates. Update checking is enabled by default and can be disabled in Handy's settings.
+
+### Model downloads
+
+When you download a speech-recognition model, Handy may contact Hugging Face and its content-delivery providers. If a Hugging Face download fails, Handy may retrieve the model from `blob.handy.computer`, which is delivered using Cloudflare.
+
+These services may receive ordinary technical request information, such as your IP address, request time, requested model or file, application or device information conveyed by HTTP headers, and download status. Model download and update requests do not include your microphone audio or transcription content.
+
+### Optional post-processing
+
+Handy offers optional post-processing through user-selected AI providers, local services, or custom endpoints. Cloud post-processing is disabled unless you configure and invoke it.
+
+When you invoke cloud post-processing, Handy sends the transcription, selected prompt, model information, and the authentication credential required for the request directly from your device to the provider you selected. Handy's maintainers do not receive or proxy this content.
+
+Processing by a selected provider is governed by that provider's privacy policy and terms. Supported providers may include OpenAI, Anthropic, OpenRouter, Groq, Cerebras, Z.AI, and AWS Bedrock. A custom endpoint is governed by the operator of that endpoint. If you do not want transcription content sent to another service, leave cloud post-processing disabled or use an on-device or local endpoint.
+
+## Website
+
+The Handy website does not currently embed advertising, behavioral analytics, or first-party tracking cookies. It may use browser information locally to show the appropriate download option for your operating system.
+
+The website and model-download infrastructure use Cloudflare for hosting, content delivery, security, and reliability. Cloudflare may process technical information such as IP addresses, browser and device information, requested pages or files, timestamps, and security signals. Cloudflare may use essential security mechanisms when necessary to protect the service.
+
+The website contains links to GitHub, donation providers, sponsors, and other third-party websites. When you follow those links, the third party receives your request and handles information under its own privacy policy.
+
+## Communications, community participation, and donations
+
+If you contact the Handy maintainers by email or through GitHub, Discord, or another community platform, we may use the information you voluntarily provide to respond, investigate a problem, or maintain the project. Information submitted to a public GitHub issue, discussion, or other public community is public.
+
+Donations are handled by third-party providers such as Stripe or GitHub Sponsors. Handy does not receive complete payment-card details, although the provider may share transaction, contact, or supporter information with the project maintainer.
+
+## Sharing and sale of information
+
+Handy does not sell personal information and does not share personal information for targeted advertising.
+
+Information may be disclosed only:
+
+- when you direct Handy to communicate with a third-party service;
+- to infrastructure providers needed to operate the website and distribute software or models;
+- when you voluntarily provide information through a support or community channel; or
+- when required to comply with applicable law or protect the project, its users, or others.
+
+## Retention and deletion
+
+The Handy maintainers do not retain copies of locally processed audio, recordings, or transcription history because that information is not received by the maintainers.
+
+Local information remains on your device according to your retention settings and until you delete it. Uninstalling Handy may not automatically remove its application data directory. Handy's About and Debug pages provide shortcuts to the relevant data, recordings, and log directories.
+
+Infrastructure providers may retain technical request logs according to their own policies and configured retention periods. Support communications and donation records may be retained as reasonably necessary to respond, maintain project records, prevent abuse, or comply with legal obligations.
+
+## Security
+
+Handy is designed to minimize data transmission by processing speech locally. Local application data is protected by your operating-system account and filesystem controls. Handy does not currently add separate application-level encryption to its local history or settings files. You are responsible for securing your device and credentials entered for external services.
+
+## Legal bases and international processing
+
+Where applicable law requires a legal basis, technical website and download data is processed as necessary for the legitimate interests of operating, securing, and improving the project; communications are processed to respond to your request; and records may be processed to comply with legal obligations. Optional third-party processing occurs when you choose and direct Handy to use that service.
+
+Cloudflare, GitHub, Hugging Face, community platforms, and optional providers may process information in countries other than your own. Their handling of international transfers is described in their respective privacy policies.
+
+## Your choices and rights
+
+You can:
+
+- disable update checks;
+- leave cloud post-processing disabled;
+- use an on-device or local post-processing endpoint;
+- delete individual history entries;
+- change recording retention settings;
+- disable transcription history by setting its limit to zero; and
+- remove Handy's local application data.
+
+Because Handy does not operate user accounts or receive your local transcription content, the maintainers generally cannot access, export, or delete information stored only on your device.
+
+Depending on where you live, you may have rights concerning personal information held by the project maintainer, such as support correspondence or donation records. To make a request, contact us using the address below. You may also have the right to complain to your local data-protection authority.
+
+## Third-party privacy policies
+
+Relevant third-party policies include:
+
+- [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/)
+- [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
+- [Hugging Face Privacy Policy](https://huggingface.co/privacy)
+
+Optional post-processing, donation, community, and custom service providers are governed by the policies of the services you select or visit.
+
+## Changes to this policy
+
+We may update this policy when Handy's functionality or data practices change. The effective date at the top of this page will be updated when material revisions are published.
+
+## Contact
+
+For privacy questions or requests, contact:
+
+**CJ Pais**  
+[contact@handy.computer](mailto:contact@handy.computer)
