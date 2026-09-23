@@ -128,6 +128,23 @@ If a model download fails partway through and you cannot re-download it:
 3. Delete any partially downloaded files
 4. Restart Handy and try the download again
 
+### Bypass Setup Screen
+
+If you are stuck on the first-time setup screen, you can bypass it by editing Handy's settings manually:
+
+1. Close Handy completely.
+2. Open Handy's app-data directory:
+   - **Windows:** `%APPDATA%\com.pais.handy\`
+   - **macOS:** `~/Library/Application Support/com.pais.handy/`
+   - **Linux:** `~/.config/com.pais.handy/`
+3. Find the settings file (`settings.json`) and set:
+   ```json
+   "onboarding_completed": true
+   ```
+4. Save the file and start Handy again.
+
+This should skip the setup screen and let you access Settings normally.
+
 ## Platform-Specific Notes
 
 ### macOS
