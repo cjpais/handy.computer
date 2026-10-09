@@ -13,6 +13,20 @@ Handy supports multiple speech-to-text models. All models run locally on your ma
 
 <DocImage src="/docs/handy-models.png" alt="Handy Models Settings" />
 
+## Cohere Transcribe
+
+[Cohere Transcribe](https://huggingface.co/CohereLabs/cohere-transcribe-03-2026) is a 2B-parameter speech recognition model from Cohere. **It's the recommended model for the highest quality English transcription** and also supports 13 other languages. It outputs punctuated, capitalized text.
+
+Handy runs Cohere Transcribe as a quantized GGUF ([handy-computer/cohere-transcribe-03-2026-gguf](https://huggingface.co/handy-computer/cohere-transcribe-03-2026-gguf)) with GPU acceleration. It's larger and slower than Parakeet, so it's best suited to machines with a capable GPU. On lower-powered hardware, Parakeet V3 is the better choice.
+
+Cohere Transcribe does not detect the spoken language automatically. Select your language in Handy's settings for best results.
+
+| Model | Size | Speed | Accuracy | Languages |
+|-------|------|-------|----------|-----------|
+| [Cohere Transcribe](https://huggingface.co/CohereLabs/cohere-transcribe-03-2026) | ~1.8 GB | Moderate | Highest | 14 languages |
+
+<LanguageList client:load title="Cohere Transcribe Supported Languages" languages={["English", "French", "German", "Spanish", "Italian", "Portuguese", "Dutch", "Polish", "Greek", "Arabic", "Japanese", "Chinese", "Vietnamese", "Korean"]} />
+
 ## Parakeet
 
 [NVIDIA's Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) models are optimized for western languages. **Parakeet V3 is the recommended model** for most users. It's fast, accurate, and supports 25 languages.
@@ -100,6 +114,7 @@ Open Handy's settings and select a model from the dropdown. New models will be d
 - **Best for translation**: Canary 1B v2 for European language translation
 - **Best for Russian**: GigaAM v3
 - **Best multilingual**: Whisper Small or Medium
+- **Best English accuracy**: Cohere Transcribe
 - **Best accuracy**: Whisper Large
 
 ## Custom Models
@@ -108,7 +123,7 @@ As an experimental feature, you can load custom Whisper-compatible models. Place
 
 ## Hardware Considerations
 
-**Whisper models** use GPU acceleration automatically:
+**Whisper and Cohere Transcribe** use GPU acceleration automatically:
 - **macOS**: Metal
 - **Windows/Linux**: Vulkan
 
