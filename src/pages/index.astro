@@ -19,10 +19,7 @@ import SponsorLogo from "../components/SponsorLogo.astro";
     heroSubtitle="the free and open source app for speech to text"
 >
     <div class="flex flex-col items-center gap-12">
-        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center">
-            <PlatformDownloadButton client:load />
-            <a href="/download">other platforms</a>
-        </div>
+        <PlatformDownloadButton client:load />
         <div class="flex flex-col items-center gap-4">
             <video
                 width="640"
