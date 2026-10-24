@@ -81,6 +81,21 @@ const { Content, headings } = await render(doc);
         border-top: 1px solid rgba(56, 39, 49, 0.2);
         margin: 2rem 0;
     }
+    /* A note to read before going on: the sidebar's pink marker, on a
+       faint pink wash. */
+    .doc-content :global(blockquote) {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid var(--handy-pink);
+        border-radius: 0 0.75rem 0.75rem 0;
+        background: color-mix(in srgb, var(--handy-light-pink) 22%, transparent);
+    }
+    .doc-content :global(blockquote p) {
+        margin: 0;
+    }
+    .doc-content :global(blockquote code) {
+        background: rgba(56, 39, 49, 0.08);
+    }
     .doc-content :global(pre) {
         margin: 0.5rem 0;
     }

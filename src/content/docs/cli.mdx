@@ -29,22 +29,21 @@ The `--toggle-transcription` and `--toggle-post-process` flags communicate with 
 
 ## Signal Control
 
-On macOS and Linux, you can control a running Handy instance using Unix signals:
+On macOS and Linux, you can also control a running Handy instance using Unix signals:
 
 | Signal | Action |
 |--------|--------|
 | `SIGUSR2` | Toggle transcription (start/stop recording) |
-| `SIGUSR1` | Toggle transcription with post-processing |
+| `SIGUSR1` | Toggle transcription with post-processing (macOS only) |
 
 ```bash
 # Toggle transcription
 pkill -USR2 -x handy
-
-# Toggle transcription with post-processing
-pkill -USR1 -x handy
 ```
 
-Signal control is the **recommended approach for Wayland** where global keyboard shortcuts often don't work natively. Bind the signal command to a shortcut in your compositor.
+**On Linux, don't send `SIGUSR1`.** Handy no longer listens for it there, because WebKitGTK uses it internally, and sending it can crash the app. Use `handy --toggle-post-process` instead, and remove any `pkill -USR1` bindings you have.
+
+On Wayland, where Handy's own shortcut often only works while its window is in front, bind `handy --toggle-transcription` to a shortcut in your desktop or compositor. See [Linux Setup](/docs/linux).
 
 ## Scripting
 
@@ -57,27 +56,27 @@ Handy works well with tiling window managers and custom keybinding setups. Use e
 ### Hyprland
 
 ```bash
-# Using signals (recommended)
-bind = $mainMod SHIFT, period, exec, pkill -USR2 -x handy
-
 # Using CLI flags
 bind = $mainMod SHIFT, period, exec, handy --toggle-transcription
+
+# Using signals
+bind = $mainMod SHIFT, period, exec, pkill -USR2 -x handy
 ```
 
 ### sway / i3
 
 ```bash
-# Using signals (recommended)
-bindsym $mod+Shift+period exec pkill -USR2 -x handy
-
 # Using CLI flags
 bindsym $mod+Shift+period exec handy --toggle-transcription
+
+# Using signals
+bindsym $mod+Shift+period exec pkill -USR2 -x handy
 ```
 
 ### GNOME (Wayland)
 
-GNOME on Wayland doesn't support global shortcuts from third-party apps. Use a custom shortcut that sends a signal:
+GNOME on Wayland doesn't support global shortcuts from third-party apps. Add a custom shortcut instead:
 
-1. Open **Settings > Keyboard > Keyboard Shortcuts > Custom Shortcuts**
-2. Add a new shortcut with the command: `pkill -USR2 -x handy`
+1. Open **Settings > Keyboard > View and Customize Shortcuts > Custom Shortcuts**
+2. Add a new shortcut with the command: `handy --toggle-transcription`
 3. Assign your preferred key combination

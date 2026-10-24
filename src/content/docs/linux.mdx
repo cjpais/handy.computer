@@ -1,0 +1,72 @@
+---
+title: "Linux Setup"
+description: "Get the shortcut and pasting working on Linux, for X11 and Wayland."
+order: 1.5
+---
+
+Handy works on Linux, but whether the shortcut and pasting work in other apps depends on your desktop. Most setups need one or two of the steps below.
+
+First, check which display server you're on:
+
+```bash
+echo $XDG_SESSION_TYPE
+```
+
+It prints `x11` or `wayland`.
+
+## 1. Set up the shortcut
+
+**On X11**, Handy's own shortcut works in every app. Skip to [step 2](#2-set-up-pasting).
+
+**On Wayland**, apps can't listen for keys in other apps, so Handy's shortcut may only work while Handy's window is in front. Instead, add a shortcut in your desktop's settings that runs this command:
+
+```bash
+handy --toggle-transcription
+```
+
+Press it once to start recording and again to stop. If you use the AppImage, put the full path to the AppImage file in place of `handy`.
+
+- **GNOME**: Settings > Keyboard > View and Customize Shortcuts > Custom Shortcuts, then **+**
+- **KDE Plasma**: System Settings > Keyboard > Shortcuts > Add New > Command or Script
+- **Hyprland**: `bind = SUPER, period, exec, handy --toggle-transcription`
+- **Sway / i3**: `bindsym $mod+period exec handy --toggle-transcription`
+
+A desktop shortcut can only toggle recording, so holding the keys to talk won't work this way. If you need hold-to-talk on Wayland, see the [Ubuntu GNOME Wayland guide](https://github.com/cjpais/Handy/tree/main/docs/troubleshooting/ubuntu-26-04-gnome-wayland).
+
+On Ubuntu, `Ctrl+Space` can also switch input methods. If the default shortcut does nothing, pick a different one.
+
+## 2. Set up pasting
+
+Handy needs a small tool to type into other apps. Install the one for your setup:
+
+| Your setup | Install |
+|------------|---------|
+| X11 | `xdotool` |
+| Wayland on GNOME or KDE | `ydotool` and `wl-clipboard` |
+| Wayland on anything else (Sway, Hyprland, ...) | `wtype` and `wl-clipboard` |
+
+`ydotool` also needs its background service running, and your user in the `input` group.
+
+> **Before you do this:** being in the `input` group lets any app you run read what you type and type for you, not just ydotool. If you'd rather not allow that, skip the commands below and set **Paste Method** to **None** in **Settings > Advanced**. Handy copies each transcription, and you paste it with Ctrl+V yourself.
+
+On Ubuntu:
+
+```bash
+sudo apt install ydotool wl-clipboard
+sudo usermod -aG input "$USER"
+systemctl --user enable --now ydotool
+```
+
+Log out and back in, then check it works by running `ydotool type hello` with your cursor in a text field. If it says it can't connect to the socket, see [this fix](https://github.com/cjpais/Handy/issues/1549).
+
+Leave **Typing Tool** on **Auto** in **Settings > Advanced**. Handy picks the installed tool for you.
+
+## 3. If the text comes out wrong
+
+If capital letters go missing, or you get the wrong letters on a non-US keyboard, set **Paste Method** to **Clipboard (Ctrl+V)** in **Settings > Advanced**. In terminals, use **Ctrl+Shift+V**.
+
+If the text appears in the wrong window, set **Overlay Position** to **None**.
+
+## Still stuck?
+
+See [Troubleshooting](/docs/troubleshooting), or ask in the [Discord](https://discord.gg/WVBeWsNXK4).
