@@ -14,10 +14,14 @@ const PlatformDownloadButton = () => {
 
   useEffect(() => {
     const detected = detectPlatform();
-    detectIntelMac().then((intelMac) => {
-      setPlatform(detected);
-      setHref(intelMac ? INTEL_MAC_DOWNLOAD : DOWNLOAD_LINKS[detected]);
-    });
+    setPlatform(detected);
+    setHref(DOWNLOAD_LINKS[detected]);
+
+    if (detected === "mac") {
+      detectIntelMac()
+        .then((intelMac) => intelMac && setHref(INTEL_MAC_DOWNLOAD))
+        .catch(() => {});
+    }
   }, []);
 
   return (

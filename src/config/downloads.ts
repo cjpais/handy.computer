@@ -121,12 +121,9 @@ export async function detectIntelMac(): Promise<boolean> {
     if (architecture === "arm") return false;
   } catch {}
 
-  // "Intel Mac OS X" is in every Mac user agent, including Apple Silicon.
-  const ua = navigator.userAgent.replace(/Intel Mac OS X/gi, "");
-  if (/intel|x86_64/i.test(ua)) return true;
-
+  let gl: WebGLRenderingContext | null = null;
   try {
-    const gl = document.createElement("canvas").getContext("webgl");
+    gl = document.createElement("canvas").getContext("webgl");
     const info = gl?.getExtension("WEBGL_debug_renderer_info");
     if (!gl || !info) return false;
     const renderer = String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL) ?? "");
@@ -134,5 +131,7 @@ export async function detectIntelMac(): Promise<boolean> {
     return /Intel|AMD|Radeon|NVIDIA|GeForce/i.test(renderer);
   } catch {
     return false;
+  } finally {
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
   }
 }
