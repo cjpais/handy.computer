@@ -11,6 +11,8 @@ export const DOWNLOAD_LINKS: Record<Platform, string> = {
   unknown: "/download", // fallback to download page
 };
 
+export const INTEL_MAC_DOWNLOAD = `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64.dmg`;
+
 export const PLATFORM_DOWNLOADS = {
   mac: [
     {
@@ -19,7 +21,7 @@ export const PLATFORM_DOWNLOADS = {
       extension: ".dmg",
     },
     {
-      href: `${GITHUB_RELEASE_BASE}/Handy_${VERSION}_x64.dmg`,
+      href: INTEL_MAC_DOWNLOAD,
       label: "Intel (x86)",
       extension: ".dmg",
     },
@@ -97,3 +99,39 @@ export const detectPlatform = (): Platform => {
 
 export const friendlyName = (p: Platform) =>
   p === "unknown" ? "" : `for ${p}`;
+
+export async function detectIntelMac(): Promise<boolean> {
+  if (typeof window === "undefined" || detectPlatform() !== "mac") return false;
+
+  const uaData = (
+    navigator as Navigator & {
+      userAgentData?: {
+        getHighEntropyValues(
+          hints: string[],
+        ): Promise<{ architecture?: string }>;
+      };
+    }
+  ).userAgentData;
+
+  try {
+    const architecture = (
+      await uaData?.getHighEntropyValues(["architecture"])
+    )?.architecture;
+    if (architecture === "x86") return true;
+    if (architecture === "arm") return false;
+  } catch {}
+
+  let gl: WebGLRenderingContext | null = null;
+  try {
+    gl = document.createElement("canvas").getContext("webgl");
+    const info = gl?.getExtension("WEBGL_debug_renderer_info");
+    if (!gl || !info) return false;
+    const renderer = String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL) ?? "");
+    if (/Apple/i.test(renderer)) return false;
+    return /Intel|AMD|Radeon|NVIDIA|GeForce/i.test(renderer);
+  } catch {
+    return false;
+  } finally {
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+  }
+}
